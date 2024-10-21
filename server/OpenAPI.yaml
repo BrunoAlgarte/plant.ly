@@ -1,17 +1,17 @@
 openapi: 3.0.0
 info:
-  title: Plant.ly API
-  description: API Plant.ly
-  version: 1.0.0
+  title: API de Monitoramento de Plantas
+  version: v1
 servers:
   - url: http://localhost:3030
     description: Servidor local
 
 paths:
+
+#### Usuários ####
   /usuarios:
     post:
-      summary: Cadastrar um novo usuário
-      description: Endpoint para cadastrar um novo usuário
+      summary: Criar um novo usuário
       requestBody:
         required: true
         content:
@@ -21,85 +21,36 @@ paths:
               properties:
                 name:
                   type: string
-                  description: Nome do usuário
                   example: João da Silva
                 email:
                   type: string
-                  description: Email do usuário
                   example: joao@gmail.com
                 senha:
                   type: string
-                  description: Senha do usuário
+                  format: password
                   example: senha123
-                plant_collection:
-                  type: array
-                  description: Lista de IDs das plantas do usuário (não obrigatório)
-                  items:
-                    type: string
-                    example: planta_id_12345
       responses:
         '201':
-          description: Usuário cadastrado com sucesso
+          description: Usuário criado com sucesso
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  message:
+                  id:
                     type: string
-                    example: Usuário cadastrado com sucesso
+                    description: ID do usuário criado
+        '400':
+          description: Requisição inválida (email já existente)
 
-    get:
-      summary: Listar usuários com filtros
-      description: Retornar usuários cadastrados, podendo ser filtrados por ID ou email
+  /usuarios/{id}/senha:
+    patch:
+      summary: Atualizar senha do usuário
       parameters:
-        - name: id
-          in: query
-          required: false
-          description: Filtrar usuário por ID
-          schema:
-            type: string
-        - name: email
-          in: query
-          required: false
-          description: Filtrar usuário por email
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Lista de usuários
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      description: ID do usuário
-                    name:
-                      type: string
-                      description: Nome do usuário
-                    email:
-                      type: string
-                      description: Email do usuário
-                    plant_collection:
-                      type: array
-                      description: Lista de plantas do usuário
-                      items:
-                        type: string
-                        example: planta_id_12345
-
-  /usuarios/{id}:
-    put:
-      summary: Atualizar um usuário
-      description: Endpoint para atualizar os dados de um usuário
-      parameters:
-        - name: id
-          in: path
+        - in: path
+          name: id
           required: true
-          description: ID do usuário a ser atualizado
+          description: ID do usuário
           schema:
             type: string
       requestBody:
@@ -109,67 +60,31 @@ paths:
             schema:
               type: object
               properties:
-                name:
+                current_password:
                   type: string
-                  description: Nome do usuário
-                  example: João da Silva
-                email:
+                  description: Senha atual do usuário
+                  format: password
+                  example: teste123
+                new_password:
                   type: string
-                  description: Email do usuário
-                  example: joao@gmail.com
-                senha:
+                  description: Nova senha do usuário
+                  format: password
+                  example: Senh@F0rt3
+                password_validation:
                   type: string
-                  description: Senha do usuário
-                  example: senha123
-                plant_collection:
-                  type: array
-                  description: Lista de IDs das plantas do usuário (não obrigatório)
-                  items:
-                    type: string
-                    example: planta_id_12345
+                  description: Confirmação da nova senha
+                  format: password
+                  example: Senh@F0rt3
       responses:
         '200':
-          description: Usuário atualizado com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Usuário atualizado com sucesso
-    delete:
-      summary: Deletar um usuário
-      description: Deleta um usuário específico
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: ID do usuário a ser deletado
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Usuário deletado com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Usuário deletado com sucesso
-        '404':
-          description: Usuário não encontrado
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Usuário não encontrado
+          description: Senha atualizada com sucesso
+        '400':
+          description: Requisição inválida (Senhas não coincidem)
+        '401':
+          description: Usuário não autenticado
 
+
+#### Plantas ####
   /plantas:
     post:
       summary: Cadastrar uma nova planta
@@ -188,7 +103,7 @@ paths:
                 type:
                   type: string
                   description: Tipo da planta
-                  example: Hortaliça
+                  enum: [Hortaliça ,Flor, Fruta, Árvore, Arbusto]
       responses:
         '201':
           description: Planta cadastrada com sucesso
@@ -197,40 +112,23 @@ paths:
               schema:
                 type: object
                 properties:
-                  message:
+                  id:
                     type: string
-                    example: Planta cadastrada com sucesso
-                  planta:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        description: ID da planta gerado automaticamente
-                      name:
-                        type: string
-                      type:
-                        type: string
-                      data_criacao:
-                        type: string
-                        description: Data de criação da planta, gerada automaticamente
-                        example: 2024-10-17T10:45:00Z
+                    example: 1b54fg4773
+                  name:
+                    type: string
+                    example: cebolinha
+                  type:
+                    type: string
+                    example: Hortaliça
+                  date_created:
+                    type: string
+                    format: date
+                    example: "2024-10-17T23:59:59Z"
 
     get:
-      summary: Listar plantas com filtros
-      description: Retornar todas as plantas cadastradas, podendo ser filtradas por nome ou tipo
-      parameters:
-        - name: name
-          in: query
-          required: false
-          description: Filtrar planta pelo nome
-          schema:
-            type: string
-        - name: type
-          in: query
-          required: false
-          description: Filtrar planta pelo tipo
-          schema:
-            type: string
+      summary: Listar todas as plantas
+      description: Retornar todas as plantas cadastradas
       responses:
         '200':
           description: Lista de plantas
@@ -244,226 +142,70 @@ paths:
                     id:
                       type: string
                       description: ID da planta
+                      example: 1b54fg4773
                     name:
                       type: string
                       description: Nome da planta
+                      example: cebolinha
                     type:
                       type: string
                       description: Tipo da planta
-                    data_criacao:
+                      example: Hotaliça
+                    date_created:
                       type: string
-                      description: Data de criação da planta
-
+                      format: date
+                      example: "2024-10-17T23:59:59Z"
+  
   /plantas/{id}:
-    put:
-      summary: Atualizar uma planta
-      description: Endpoint para atualizar os dados de uma planta
+    get:
+      summary: Obter detalhes de uma planta
       parameters:
-        - name: id
-          in: path
+        - in: path
+          name: id
           required: true
-          description: ID da planta a ser atualizada
+          description: ID da planta
           schema:
             type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: Nome da planta
-                  example: Cebolinha
-                type:
-                  type: string
-                  description: Tipo da planta
-                  example: Hortaliça
       responses:
         '200':
-          description: Planta atualizada com sucesso
+          description: Detalhes da planta
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  message:
+                  id:
                     type: string
-                    example: Planta atualizada com sucesso
-
-    delete:
-      summary: Deletar uma planta
-      description: Deleta uma planta específica
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: ID da planta a ser deletada
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Planta deletada com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
+                    example: 1b54fg4773
+                  name:
                     type: string
-                    example: Planta deletada com sucesso
+                    example: cebolinha
+                  type:
+                    type: string
+                    example: Hortaliça
+                  date_created:
+                    type: string
+                    format: date
+                    example: "2024-10-17T23:59:59Z"
         '404':
           description: Planta não encontrada
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Planta não encontrada
-
-  /especies:
-    post:
-      summary: Cadastrar uma nova espécie de planta
-      description: Endpoint para cadastrar um novo tipo de planta (espécie)
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: Nome da espécie de planta
-                  example: Hortelã
-                info:
-                  type: string
-                  description: Informações e orientações sobre o cultivo e cuidados da planta
-                  example: Precisa de luz solar direta por pelo menos 4 horas por dia, regar quando o solo estiver seco.
-      responses:
-        '201':
-          description: Espécie cadastrada com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Espécie cadastrada com sucesso
-                  especie:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        description: ID da espécie gerado automaticamente
-                      name:
-                        type: string
-                      info:
-                        type: string
-
-    get:
-      summary: Listar espécies com filtros
-      description: Retornar todas as espécies cadastradas, podendo ser filtradas por nome
-      parameters:
-        - name: name
-          in: query
-          required: false
-          description: Filtrar espécie pelo nome
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Lista de espécies de plantas
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: string
-                      description: ID da espécie
-                    name:
-                      type: string
-                      description: Nome da espécie
-                    info:
-                      type: string
-                      description: Informações sobre o cultivo e cuidados da planta
-
-  /especies/{id}:
-    put:
-      summary: Atualizar uma espécie
-      description: Endpoint para atualizar os dados de uma espécie de planta
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: ID da espécie a ser atualizada
-          schema:
-            type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: Nome da espécie
-                  example: Hortelã
-                info:
-                  type: string
-                  description: Informações e orientações sobre o cultivo e cuidados da planta
-                  example: Precisa de luz solar direta por pelo menos 4 horas por dia, regar quando o solo estiver seco.
-      responses:
-        '200':
-          description: Espécie atualizada com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Espécie atualizada com sucesso
 
     delete:
-      summary: Deletar uma espécie
-      description: Deleta uma espécie de planta específica
+      summary: Excluir uma planta
       parameters:
-        - name: id
-          in: path
+        - in: path
+          name: id
           required: true
-          description: ID da espécie a ser deletada
+          description: ID da planta
           schema:
             type: string
       responses:
-        '200':
-          description: Espécie deletada com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Espécie deletada com sucesso
+        '204':
+          description: Planta excluída com sucesso
         '404':
-          description: Espécie não encontrada
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Espécie não encontrada
+          description: Planta não encontrada
+  
+#### Sensores ####  
   /sensores:
     get:
       summary: Buscar dados de sensores

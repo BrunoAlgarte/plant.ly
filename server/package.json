@@ -1,0 +1,27 @@
+{
+  "name": "plantly",
+  "version": "1.0.0",
+  "description": "Api de monitorameto de plantas",
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.1",
+    "joi": "^17.13.3",
+    "mongoose": "^8.7.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrunoAlgarte/plant.ly.git"
+  },
+  "author": "Rafael Veríssimo da Silva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrunoAlgarte/plant.ly/issues"
+  },
+  "homepage": "https://github.com/BrunoAlgarte/plant.ly#readme"
+}
