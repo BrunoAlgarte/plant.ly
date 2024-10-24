@@ -6,7 +6,6 @@ const plantSchema = new Schema({
   name: { type: String, required: true },
   type: { type: String, required: true },
   date_created: { type: Date, default: Date.now },
-  sensor_data: [{ type: Schema.Types.ObjectId, ref: 'SensorData' }]
 });
 
 module.exports = mongoose.model('Plant', plantSchema);

@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const app = express();
 app.use(express.json());
 
-// Conexão com o MongoDB usando a variável de ambiente
+
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Conectado ao MongoDB'))
   .catch((err) => console.error('Erro ao conectar ao MongoDB', err));
@@ -24,7 +24,7 @@ app.use('/v1/species', speciesRoutes);
 app.use('/v1/sensors', sensorRoutes);
 
 // Porta do servidor
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3030;
 app.listen(PORT, () => {
   console.log(`API rodando em http://localhost:${PORT}`);
 });
