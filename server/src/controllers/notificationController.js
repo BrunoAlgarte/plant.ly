@@ -1,4 +1,4 @@
-const Notification = require('../models/notificationModel');
+const Notification = require('../models/Notification');
 const controller = {}
 
 // Cria uma nova notificação
