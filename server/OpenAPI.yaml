@@ -157,7 +157,7 @@ paths:
         '500':
           description: Erro no servidor
 
-  /v1/auth/reset_password:
+  /v1/auth/resetPassword:
     patch:
       summary: Alterar senha
       description: Atualiza a senha do usuário
@@ -199,7 +199,7 @@ paths:
           description: Erro no servidor
 
   #### Plantas ####
-  /v1/plants:
+  /v1/plants/user/:user_id:
     post:
       summary: Cadastrar uma nova planta
       description: Associa a planta a um usuário e uma espécie
@@ -240,6 +240,40 @@ paths:
           description: Usuário ou espécie não encontrada
         '500':
           description: Erro ao cadastrar a planta
+    
+    get:
+      summary: Buscar as plantas de um usuário
+      description: Retorna as planta com base no ID do usuário
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: string
+            example: 758fdc4eb72
+      responses:
+        '200':
+          description: Plantas encontradas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 758fdc4eb72
+                  name:
+                    type: string
+                    example: Cebolinha
+                  type:
+                    type: string
+                    example: Hortaliça
+        '404':
+          description: Planta não encontrada
+        '400':
+          description: ID do usuário inválido
+        '500':
+          description: Erro ao buscar a planta
 
   /v1/plants/{id}:
     get:
@@ -301,67 +335,6 @@ paths:
           description: Erro ao deletar a planta
 
   #### Espécies ####
-  /v1/spieces:
-    post:
-      summary: Cadastrar uma nova espécie
-      description: Cadastra uma nova espécie de planta
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  example: Hortelã
-                scientific_name:
-                  type: string
-                  example: Mentha spicata
-                watering_tips:
-                  type: string
-                  example: Regar 2 vezes por semana
-                sunlight_tips:
-                  type: string
-                  example: Luz solar direta
-                soil_tips:
-                  type: string
-                  example: Solo fértil e bem drenado
-                temperature_min:
-                  type: number
-                  example: 10
-                temperature_max:
-                  type: number
-                  example: 30
-                growth_time:
-                  type: string
-                  example: 3 meses
-      responses:
-        '201':
-          description: Espécie cadastrada com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Espécie cadastrada com sucesso
-                  species:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                        example: Hortelã
-                      scientific_name:
-                        type: string
-                        example: Mentha spicata
-                      watering_tips:
-                        type: string
-                        example: Regar 2 vezes por semana
-        '500':
-          description: Erro ao cadastrar a espécie
-
   /v1/spieces/{id}:
     get:
       summary: Buscar dados de uma espécie
@@ -400,32 +373,6 @@ paths:
           description: Espécie não encontrada
         '500':
           description: Erro ao buscar a espécie
-
-    delete:
-      summary: Deletar uma espécie
-      description: Exclui uma espécie pelo ID
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            example: 648a4f2eae23
-      responses:
-        '200':
-          description: Espécie deletada com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Espécie deletada com sucesso
-        '404':
-          description: Espécie não encontrada
-        '500':
-          description: Erro ao deletar a espécie
 
   #### Sensores ####
   /v1/sensors:
@@ -507,3 +454,6 @@ paths:
                       example: 1
         '500':
           description: Erro ao buscar dados dos sensores
+
+  ##/v1/notifications:
+          

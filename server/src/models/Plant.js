@@ -8,4 +8,6 @@ const plantSchema = new Schema({
   date_created: { type: Date, default: Date.now },
 });
 
+
+
 module.exports = mongoose.model('Plant', plantSchema);
