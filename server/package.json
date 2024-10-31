@@ -10,12 +10,12 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "joi": "^17.13.3",
     "mongodb": "^6.10.0",
-    "mongoose": "^8.7.2",
-    "plantly": "file:"
+    "mongoose": "^8.7.2"
   },
   "repository": {
     "type": "git",
