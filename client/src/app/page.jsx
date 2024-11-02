@@ -6,13 +6,16 @@ import useUserId from "../utils/hooks/useUserId";
 import { Button } from "../components/ui/button";
 import { toast, Bounce } from "react-toastify";
 import { Input } from "../components/ui/input";
+import { CircleLoader } from "react-spinners";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import axios from "axios";
+import api from "../utils/api";
+
 export default function Home() {
   const [isEditPasswordModalOpen, setIsEditPasswordModalOpen] = useState(false);
   const [isUserModalOpen, setIsUserModalOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const { setUserId } = useUserId();
@@ -28,8 +31,9 @@ export default function Home() {
 
   const handleLogin = async (event) => {
     event.preventDefault();
+    setLoading(true);
     try {
-      const response = await axios.post("http://localhost:3030/v1/auth/login", {
+      const response = await api.post("/v1/auth/login", {
         email,
         password,
       });
@@ -53,7 +57,7 @@ export default function Home() {
 
         setTimeout(() => {
           router.push("/main");
-        }, 2000);
+        }, 1000);
       }
     } catch (error) {
       if (error)
@@ -68,6 +72,8 @@ export default function Home() {
           theme: "light",
           transition: Bounce,
         });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -109,7 +115,7 @@ export default function Home() {
               variant="default"
               size="default"
             >
-              Login
+              {loading ? <CircleLoader color="#ffffff" size={20} /> : "Login"}
             </Button>
             <div className="flex items-center justify-center mt-4 cursor-default">
               <p className="text-sm flex flex-col text-[#1e722f]">
@@ -122,18 +128,24 @@ export default function Home() {
               </p>
             </div>
             <div className="flex items-center justify-center mt-1 cursor-default">
-              <p className="text-sm flex flex-col text-[#1e722f]">
+              <p className="text-xs flex flex-col text-[#1e722f]">
                 Não tem uma conta?{" "}
                 <button
                   onClick={() => setIsUserModalOpen(true)}
-                  className="text-[#1e722f] hover:underline"
+                  className="text-[#1e722f] text-sm hover:underline"
                 >
                   Cadastre-se
                 </button>
               </p>
             </div>
-            <EditPasswordModal isOpen={isEditPasswordModalOpen} onClose={handleCloseEditPasswordModal} />
-            <AddUserModal isOpen={isUserModalOpen} onClose={handleCloseUserModal} />
+            <EditPasswordModal
+              isOpen={isEditPasswordModalOpen}
+              onClose={handleCloseEditPasswordModal}
+            />
+            <AddUserModal
+              isOpen={isUserModalOpen}
+              onClose={handleCloseUserModal}
+            />
           </div>
         </form>
       </main>

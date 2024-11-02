@@ -1,9 +1,10 @@
 "use client";
 import { toast, Bounce } from "react-toastify";
+import { CircleLoader } from "react-spinners";
 import { useState, useEffect } from "react";
 import { Input } from "../ui/input";
+import api from "../../utils/api";
 import { X } from "lucide-react";
-import axios from "axios";
 
 export default function ModalRegister({ isOpen, onClose }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,6 +21,17 @@ export default function ModalRegister({ isOpen, onClose }) {
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleCloseModal = () => {
+    setFormData({
+      email: "",
+      current_password: "",
+      new_password: "",
+      password_validation: "",
+    });
+    onClose();
+    setIsLoading(false);
   };
 
   const handleSubmit = async (e) => {
@@ -43,8 +55,8 @@ export default function ModalRegister({ isOpen, onClose }) {
     }
 
     try {
-      const response = await axios.patch(
-        "http://localhost:3030/v1/auth/resetPassword",
+      const response = await api.patch(
+        "/v1/auth/resetPassword",
         {
           email: formData.email.toLowerCase().trim(),
           current_password: formData.current_password,
@@ -72,7 +84,7 @@ export default function ModalRegister({ isOpen, onClose }) {
           new_password: "",
           password_validation: "",
         });
-        onClose();
+        handleCloseModal();
       }
     } catch (error) {
       toast.error(
@@ -99,79 +111,87 @@ export default function ModalRegister({ isOpen, onClose }) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center">
       <div
-        className="w-[600px] flex flex-col"
+        className="w-10/12 lg:w-5/12 flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="bg-white p-8 rounded-2xl">
           <div className="flex justify-between items-center">
             <h1 className="text-2xl font-bold text-[#1e722f]">Alterar senha</h1>
-            <button className="text-black text-xl" onClick={onClose}>
+            <button className="text-black text-xl" onClick={handleCloseModal}>
               <X size={24} />
             </button>
           </div>
 
           <form onSubmit={handleSubmit} method="POST" className="mt-4">
-            <div className="flex flex-col mb-4">
-              <label className="mb-2 text-[#1e722f]">Email</label>
-              <div className="w-full h-12 m-0">
-                <Input
-                  type="text"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Email"
-                  className="mt-1 w-full mb-1 rounded-xl py-6 border-2 border-green-800 bg-[#ffffff87] text-[#1e722f]"
-                  required
-                />
+            {isLoading ? (
+              <div className="flex justify-center items-center h-full py-20">
+                  <CircleLoader color="#1e722f" size={50} />
               </div>
-            </div>
+            ) : (
+              <>
+                <div className="flex flex-col mb-4">
+                  <label className="mb-2 text-[#1e722f]">Email</label>
+                  <div className="w-full h-12 m-0">
+                    <Input
+                      type="text"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Email"
+                      className="mt-1 w-full mb-1 rounded-xl py-6 border-2 border-green-800 bg-[#ffffff87] text-[#1e722f]"
+                      required
+                    />
+                  </div>
+                </div>
 
-            <div className="flex flex-col mb-4">
-              <label className="mb-2 text-[#1e722f]">Senha atual</label>
-              <div className="w-full h-12 m-0">
-                <Input
-                  type="password"
-                  name="current_password"
-                  value={formData.current_password}
-                  onChange={handleChange}
-                  placeholder="Senha atual"
-                  className="mt-1 w-full mb-1 rounded-xl py-6 border-2 border-green-800 bg-[#ffffff87] text-[#1e722f]"
-                  required
-                />
-              </div>
-            </div>
+                <div className="flex flex-col mb-4">
+                  <label className="mb-2 text-[#1e722f]">Senha atual</label>
+                  <div className="w-full h-12 m-0">
+                    <Input
+                      type="password"
+                      name="current_password"
+                      value={formData.current_password}
+                      onChange={handleChange}
+                      placeholder="Senha atual"
+                      className="mt-1 w-full mb-1 rounded-xl py-6 border-2 border-green-800 bg-[#ffffff87] text-[#1e722f]"
+                      required
+                    />
+                  </div>
+                </div>
 
-            <div className="flex flex-col mb-6">
-              <label className="mb-2 text-[#1e722f]">Nova senha</label>
-              <div className="w-full h-12 m-0">
-                <Input
-                  type="password"
-                  name="new_password"
-                  value={formData.new_password}
-                  onChange={handleChange}
-                  placeholder="Nova senha"
-                  className="mt-1 w-full mb-1 rounded-xl py-6 border-2 border-green-800 bg-[#ffffff87] text-[#1e722f]"
-                  required
-                />
-              </div>
-            </div>
+                <div className="flex flex-col mb-6">
+                  <label className="mb-2 text-[#1e722f]">Nova senha</label>
+                  <div className="w-full h-12 m-0">
+                    <Input
+                      type="password"
+                      name="new_password"
+                      value={formData.new_password}
+                      onChange={handleChange}
+                      placeholder="Nova senha"
+                      className="mt-1 w-full mb-1 rounded-xl py-6 border-2 border-green-800 bg-[#ffffff87] text-[#1e722f]"
+                      required
+                    />
+                  </div>
+                </div>
 
-            <div className="flex flex-col mb-6">
-              <label className="mb-2 text-[#1e722f]">
-                Confirmar nova senha
-              </label>
-              <div className="w-full h-12 m-0">
-                <Input
-                  type="password"
-                  name="password_validation"
-                  value={formData.password_validation}
-                  onChange={handleChange}
-                  placeholder="Confirmar nova senha"
-                  className="mt-1 w-full mb-1 rounded-xl py-6 border-2 border-green-800 bg-[#ffffff87] text-[#1e722f]"
-                  required
-                />
-              </div>
-            </div>
+                <div className="flex flex-col mb-6">
+                  <label className="mb-2 text-[#1e722f]">
+                    Confirmar nova senha
+                  </label>
+                  <div className="w-full h-12 m-0">
+                    <Input
+                      type="password"
+                      name="password_validation"
+                      value={formData.password_validation}
+                      onChange={handleChange}
+                      placeholder="Confirmar nova senha"
+                      className="mt-1 w-full mb-1 rounded-xl py-6 border-2 border-green-800 bg-[#ffffff87] text-[#1e722f]"
+                      required
+                    />
+                  </div>
+                </div>
+              </>
+            )}
 
             <div className="flex justify-end">
               <button
