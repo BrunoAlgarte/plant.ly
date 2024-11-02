@@ -1,21 +1,17 @@
-'use client';
-
-import React, { useState } from "react";
-import { Poppins } from "next/font/google";
+"use client";
 import AddPlantModal from "../components/modals/addPlantModal";
-import useAddPlantModal from "../utils/hooks/useAddPlantModal";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { usePathname } from "next/navigation";
+import { Poppins } from "next/font/google";
+import Header from "../components/header";
+import React from "react";
 import "./globals.css";
 
-// Configurando a fonte Poppins
-const poppins = Poppins({ subsets: ["latin"], weight: ['500'] });
+const poppins = Poppins({ subsets: ["latin"], weight: ["500"] });
 
-// Componente de layout
 export default function ClientLayout({ children }) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleOpen = () => {setIsOpen(true)};
-  const handleClose = () => {setIsOpen(false)};
-
+  const pathname = usePathname();
   return (
     <html lang="en">
       <head>
@@ -23,8 +19,10 @@ export default function ClientLayout({ children }) {
         <meta name="description" content="Cuide de sua plantinha" />
       </head>
       <body suppressHydrationWarning={true} className={poppins.className}>
+        {pathname !== "/" && <Header />}
         {children}
-        <AddPlantModal isOpen={isOpen} onClose={handleClose} />
+        <AddPlantModal />
+        <ToastContainer />
       </body>
     </html>
   );

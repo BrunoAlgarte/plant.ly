@@ -1,5 +1,5 @@
 export const metadata = {
-    title: "Plantinha",
+    title: "Plant.ly",
     description: "Cuide de sua plantinha",
   };
   

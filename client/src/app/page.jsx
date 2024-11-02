@@ -1,65 +1,81 @@
 "use client";
+import { useHeaderName } from "../utils/hooks/useHeaderName";
+import AddUserModal from "../components/modals/addUserModal";
+import useUserId from "../utils/hooks/useUserId";
 import { Button } from "../components/ui/button";
 import { toast, Bounce } from "react-toastify";
 import { Input } from "../components/ui/input";
 import { useState, useEffect } from "react";
-// import Footer from "../components/footer";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import axios from "axios";
-import React from "react";
-
 export default function Home() {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const { setUserId } = useUserId();
+  const router = useRouter();
 
-  const id = '67195a784f728be2f12ebc09';
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
-  const getUser = async () => {
-    try {
-      const response = await axios.get(`http://localhost:3030/v1/users/${id}`, {
-      });
-      console.log(response);
-    }
-    catch (error) {
-      console.log(error);
-    }
-  }        
-
-  const handleLogin = async () => {
+  const handleLogin = async (event) => {
+    event.preventDefault();
     try {
       const response = await axios.post("http://localhost:3030/v1/auth/login", {
         email,
         password,
       });
+
       if (response.status === 200) {
-        toast.success("Login efetuado com sucesso!", {
+        const { setUserName } = useHeaderName.getState();
+        setUserName(response.data.user.name);
+        setUserId(response.data.user.id);
+
+        toast.success("Login realizado com sucesso!", {
           position: "top-center",
+          autoClose: 1500,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
           transition: Bounce,
         });
-        window.location.href = "/main";
-      }
-    }
-    catch (error) {
-      console.log(error);
-      toast.error("Usuário ou senha inválidos!", {
-        position: "top-center",
-        transition: Bounce,
-      });
-    }
-  }
 
-  useEffect(() => {
-    getUser();
-  }, []);
+        setTimeout(() => {
+          router.push("/main");
+        }, 2000);
+      }
+    } catch (error) {
+      if (error)
+        toast.error(`${error?.response?.data?.message}`, {
+          position: "top-center",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+    }
+  };
 
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-center p-10 bg-[url('/img/bg-phot.jpg')] bg-cover bg-center">
-        <div className="w-10/12 md:w-3/5 lg:w-1/3 min-h-full py-10 md:py-4 md:pl-2 pl-0 lg:pl-0 lg:py-10 items-center justify-center text-sm flex flex-col lg:flex-col md:flex-row rounded-3xl bg-[#edededd4] shadow-xl border-3 border-green-800">
+      <main className="flex min-h-screen flex-col items-center justify-center p-8 bg-[url('/img/bg-phot.jpg')] bg-cover bg-center">
+        <form
+          className="w-10/12 md:w-3/5 lg:w-1/3 min-h-full py-10 md:py-4 md:pl-2 pl-0 lg:pl-0 lg:py-10 items-center justify-center text-sm flex flex-col lg:flex-col md:flex-row rounded-3xl bg-[#edededd4] shadow-xl border-3 border-green-800"
+          onSubmit={handleLogin}
+        >
           <Image
             src="/img/logo-teste.png"
-            width={260}
-            height={260}
+            width={240}
+            height={240}
             alt="logo"
             className="mx-auto mb-10 lg:mb-10 md:mb-0 h-full"
           />
@@ -86,14 +102,23 @@ export default function Home() {
               type="submit"
               variant="default"
               size="default"
-              onClick={() => handleLogin()}
             >
               Login
             </Button>
-            {/* {message && <p className="mt-4 text-white">{message}</p>} */}
+            <div className="flex items-center justify-center mt-4 cursor-default">
+              <p className="text-sm flex flex-col text-[#1e722f]">
+                Não tem uma conta?{" "}
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="text-[#1e722f] hover:underline"
+                >
+                  Cadastre-se
+                </button>
+              </p>
+            </div>
+            <AddUserModal isOpen={isModalOpen} onClose={handleCloseModal} />
           </div>
-        </div>
-        {/* <Footer /> */}
+        </form>
       </main>
     </>
   );

@@ -1,42 +1,38 @@
 "use client";
-// import { toast, Bounce } from 'react-toastify';
-// import { useState, useEffect } from "react";
+import { useHeaderName } from "../utils/hooks/useHeaderName";
+import useUserId from "../utils/hooks/useUserId";
 import { Button } from "../components/ui/button";
+import { useRouter } from "next/navigation";
 import { User2Icon } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
 function Header() {
-  //   const [user, setUser] = useState<{ nome: string; localAnalista: string } | null>(null);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const { user_name, clearStorage } = useHeaderName();
+  const { user_id, clearUserStorage } = useUserId();
+  const router = useRouter();
+  
+  const handleLogout = () => {
+    clearStorage();
+    clearUserStorage();
+    router.push("/");
+  };
 
-  //   useEffect(() => {
-  //     const nomeAnalista = localStorage.getItem('nomeAnalista');
-  //     const localAnalista = localStorage.getItem('localAnalista');
+  React.useEffect(() => {
+    setIsLoading(false);
+  }, [user_id, user_name, router]);
 
-  //     if (nomeAnalista && localAnalista) {
-  //       setUser({ nome: nomeAnalista, localAnalista });
-  //     } else {
-  //       toast.error('Informações de Usuário nao encontradas!', {
-  //         position: "bottom-center",
-  //         autoClose: 10000,
-  //         hideProgressBar: false,
-  //         closeOnClick: true,
-  //         pauseOnHover: true,
-  //         draggable: true,
-  //         progress: undefined,
-  //         theme: "colored",
-  //         transition: Bounce,
-  //         });
-  //       console.error('Dados do analista não encontrados no armazenamento local.');
-  //     }
-  //   }, []);
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <div className="z-5 flex justify-between w-full h-20 fixed bg-[#1e722f] px-2 drop-shadow-3xl mb-2">
       <div
         className="flex items-center gap-2 pl-4 py-2 cursor-pointer"
         onClick={() => {
-          window.location.href = "/main";
+          router.push("/main");
         }}
       >
         <Image
@@ -50,16 +46,16 @@ function Header() {
           Plant.ly
         </h2>
       </div>
-      <div className="pr-0 py-2 flex gap-x-2 items-center">
-        <div className="flex gap-x-2">
-          <p className="text-white text-lg">{`Olá, Usuário`}</p>
+      <div className="pr-0 py-2 flex gap-x-2 items-center w-fit justify-end">
+        <div className="flex gap-x-2 items-center">
+          <p className="text-white text-base w-fit whitespace-nowrap">{`Olá, ${
+            user_name ? user_name : "Visitante"
+          }`}</p>
           <User2Icon size={25} color="#ffffff" />
         </div>
         <Button
           className="w-1/4 h-8 bg-[#ffffff] hover:bg-[#29581f] text-black hover:text-white shadow-md rounded-xl hover:shadow-xl px-8 py-3"
-          onClick={() => {
-            window.location.href = "/";
-          }}
+          onClick={handleLogout}
         >
           Sair
         </Button>

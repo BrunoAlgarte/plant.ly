@@ -1,10 +1,23 @@
 "use client";
-
-import React from "react";
+import { useHeaderName } from "../../../utils/hooks/useHeaderName";
+import useUserId from "../../../utils/hooks/useUserId";
 import Header from "../../../components/header";
 import Footer from "../../../components/footer";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import React from "react";
 
 export default function Main() {
+  const { user_name } = useHeaderName();
+  const { user_id } = useUserId();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!user_id || !user_name) {
+      router.push('/');
+    }
+  }, [user_id, user_name, router]);
+
   return (
     <>
       <div className="flex flex-col justify-between h-screen">
@@ -14,7 +27,7 @@ export default function Main() {
             <div
               className="flex justify-start items-end bg-[url('/img/floresta.jpg')] bg-cover bg-center h-[400px] w-full rounded-2xl border-2 border-gray-300 p-2 hover:border-5 hover:border-[#1e722f] shadow-md hover:shadow-2xl cursor-pointer"
               onClick={() => {
-                window.location.href = "/dashboard";
+                router.push("/dashboard");
               }}
             >
               <h1 className="text-6xl text-white h-full flex items-end uppercase">
@@ -24,7 +37,7 @@ export default function Main() {
             <div
               className="flex justify-start items-baseline bg-[url('/img/canto_1.jpg')] bg-cover bg-center h-[400px] w-full rounded-2xl border-2 border-gray-600 p-2 hover:border-5 hover:border-[#1e722f] shadow-md hover:shadow-2xl cursor-pointer"
               onClick={() => {
-                window.location.href = "/plants";
+                router.push("/plants");
               }}
             >
               <h1 className="text-6xl text-[#1e722f] h-full flex items-end uppercase">
