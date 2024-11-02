@@ -1,4 +1,5 @@
 "use client";
+import EditPasswordModal from "../components/modals/editPasswordModal";
 import { useHeaderName } from "../utils/hooks/useHeaderName";
 import AddUserModal from "../components/modals/addUserModal";
 import useUserId from "../utils/hooks/useUserId";
@@ -10,14 +11,19 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import axios from "axios";
 export default function Home() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditPasswordModalOpen, setIsEditPasswordModalOpen] = useState(false);
+  const [isUserModalOpen, setIsUserModalOpen] = useState(false);
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const { setUserId } = useUserId();
   const router = useRouter();
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleCloseEditPasswordModal = () => {
+    setIsEditPasswordModalOpen(false);
+  };
+
+  const handleCloseUserModal = () => {
+    setIsUserModalOpen(false);
   };
 
   const handleLogin = async (event) => {
@@ -74,10 +80,10 @@ export default function Home() {
         >
           <Image
             src="/img/logo-teste.png"
-            width={240}
-            height={240}
+            width={200}
+            height={200}
             alt="logo"
-            className="mx-auto mb-10 lg:mb-10 md:mb-0 h-full"
+            className="mx-auto mb-5 lg:mb-5 md:mb-0 h-full"
           />
           <div className="justify-center w-full flex flex-col items-center">
             <p className="text-green-800 text-lg">Faça login para continuar</p>
@@ -107,16 +113,27 @@ export default function Home() {
             </Button>
             <div className="flex items-center justify-center mt-4 cursor-default">
               <p className="text-sm flex flex-col text-[#1e722f]">
+                <button
+                  onClick={() => setIsEditPasswordModalOpen(true)}
+                  className="text-[#1e722f] hover:underline"
+                >
+                  Alterar senha
+                </button>
+              </p>
+            </div>
+            <div className="flex items-center justify-center mt-1 cursor-default">
+              <p className="text-sm flex flex-col text-[#1e722f]">
                 Não tem uma conta?{" "}
                 <button
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={() => setIsUserModalOpen(true)}
                   className="text-[#1e722f] hover:underline"
                 >
                   Cadastre-se
                 </button>
               </p>
             </div>
-            <AddUserModal isOpen={isModalOpen} onClose={handleCloseModal} />
+            <EditPasswordModal isOpen={isEditPasswordModalOpen} onClose={handleCloseEditPasswordModal} />
+            <AddUserModal isOpen={isUserModalOpen} onClose={handleCloseUserModal} />
           </div>
         </form>
       </main>
