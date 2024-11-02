@@ -10,6 +10,7 @@ export default function ModalRegister({ isOpen, onClose }) {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
+    last_name: "",
     email: "",
     password: "",
     plants: [],
@@ -24,7 +25,7 @@ export default function ModalRegister({ isOpen, onClose }) {
   };
 
   const handleCloseModal = () => {
-    setFormData({ name: "", email: "", password: "", plants: [] });
+    setFormData({ name: "", last_name: "", email: "", password: "", plants: [] });
     onClose();
     setIsLoading(false);
   };
@@ -47,6 +48,7 @@ export default function ModalRegister({ isOpen, onClose }) {
     try {
       const response = await api.post("/v1/users", {
         name: formData.name.trim(),
+        last_name: formData.last_name.trim(),
         email: formData.email.toLowerCase().trim(),
         password: formData.password,
         plants: [],
@@ -119,7 +121,22 @@ export default function ModalRegister({ isOpen, onClose }) {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      placeholder="Nome completo"
+                      placeholder="Nome"
+                      className="mt-1 w-full mb-1 rounded-xl py-6 border-2 border-green-800 bg-[#ffffff87] text-[#1e722f]"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-col mb-4">
+                  <label className="mb-2 text-[#1e722f]">Sobrenome</label>
+                  <div className="w-full h-12 m-0">
+                    <Input
+                      type="text"
+                      name="last_name"
+                      value={formData.last_name}
+                      onChange={handleChange}
+                      placeholder="Sobrenome"
                       className="mt-1 w-full mb-1 rounded-xl py-6 border-2 border-green-800 bg-[#ffffff87] text-[#1e722f]"
                       required
                     />
