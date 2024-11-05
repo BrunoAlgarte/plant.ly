@@ -36,15 +36,15 @@ function Header() {
         }}
       >
         <Image
-          src="/img/logo-teste.png"
-          width={40}
-          height={40}
+          src="/img/logo_novo.png"
+          width={100}
+          height={100}
           alt="logo robotic"
-          className="mr-6 md:mr-0 shadow-lg"
+          className="mr-6 md:mr-0 "
         />
-        <h2 className="hidden md:block font-bold text-sm lg:text-4xl text-white">
+        {/* <h2 className="hidden md:block font-bold text-sm lg:text-4xl text-white">
           Plant.ly
-        </h2>
+        </h2> */}
       </div>
       <div className="pr-0 py-2 flex gap-x-2 items-center w-fit justify-end">
         <div className="flex gap-x-2 items-center">
@@ -63,5 +63,5 @@ function Header() {
     </div>
   );
 }
-
 export default Header;
+

@@ -6,7 +6,9 @@ import { LeafIcon, Trash2Icon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import Header from "../../../components/header";
 import Footer from "../../../components/footer";
+import { toast, Bounce } from "react-toastify";
 import { CircleLoader } from "react-spinners";
+import { useRouter } from "next/navigation";
 import api from "../../../utils/api";
 import Image from "next/image";
 
@@ -15,21 +17,34 @@ export default function Plants() {
   const [loading, setLoading] = useState(true);
   const [plants, setPlants] = useState([]);
   const { user_id } = useUserId();
+  const router = useRouter();
 
   const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
+    fetchPlants();
+  };
 
   const fetchPlants = async () => {
     try {
       if (!user_id) {
-        console.error("ID do usuário não encontrado");
         return;
       }
 
       const { data } = await api.get(`/v1/plants/user/${user_id}`);
       setPlants(data);
     } catch (error) {
-      console.error("Erro ao buscar plantas:", error);
+      toast.error("Erro ao buscar plantas. Tente novamente.", {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
     } finally {
       setLoading(false);
     }
@@ -37,23 +52,61 @@ export default function Plants() {
 
   const deletePlant = async (plantId) => {
     try {
-      await api.delete(`/plants/${plantId}`);
+      if (!plantId) {
+        toast.error("ID da planta inválido ou não fornecido", {
+          position: "top-center",
+          autoClose: 1500,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+          transition: Bounce,
+        });
+        return;
+      }
+
+      await api.delete(`/v1/plants/${plantId}`);
       setPlants(plants.filter((plant) => plant.id !== plantId));
+      fetchPlants();
+      
+      toast.success("Planta removida com sucesso!", {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        transition: Bounce,
+      });
     } catch (error) {
-      console.error("Erro ao deletar planta:", error);
+      toast.error("Erro ao deletar planta. Tente novamente.", {
+        position: "top-center",
+        autoClose: 1500,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
     }
   };
 
   useEffect(() => {
     fetchPlants();
-  }, [user_id]);
+  }, [user_id, AddPlantModal.onPlantAdded]);
 
   return (
     <>
-      <div className="flex flex-col justify-between h-screen">
+      <div className="flex flex-col min-h-screen">
         <Header />
-        <div className="pt-4 h-full w-screen bg-[rgb(221,220,220)] bg-cover">
-          <div className="px-2 mt-16 py-2">
+        <div className="flex-1 bg-[rgb(221,220,220)]">
+          <div className="px-2 mt-20 py-2">
             <div className="flex gap-2 py-2 justify-between items-center">
               <h1 className="pl-2 text-4xl text-[#1e722f] font-semibold">
                 Minhas plantas
@@ -67,11 +120,12 @@ export default function Plants() {
                 <AddPlantModal
                   isOpen={isModalOpen}
                   onClose={closeModal}
+                  userId={user_id}
                   onPlantAdded={fetchPlants}
                 />
               </button>
             </div>
-            <div className="flex flex-col p-2 gap-y-3">
+            <div className="flex flex-col p-2 gap-y-3 overflow-y-auto">
               {loading ? (
                 <div className="flex justify-center items-center h-full py-10">
                   <CircleLoader color="#1e722f" size={100} />
@@ -96,20 +150,23 @@ export default function Plants() {
                   >
                     <div className="flex gap-x-3 items-center">
                       <Image
-                        src={plant.image_url || "/img/plante_default.jpg"}
+                        src={plant.image_url || "/img/floresta.jpg"}
                         width={150}
                         height={150}
                         alt={plant.name}
                         className="h-full mr-2 border-2 border-[#1e722f] rounded-full min-h-[100px] max-h-[100px] min-w-[100px] max-w-[100px]"
                       />
                       <div className="flex flex-col">
-                        <h1 className="text-[#1e722f] text-2xl font-bold mb-2">
+                        <h1 className="text-[#1e722f] text-2xl font-bold">
                           {plant.name}
+                        </h1>
+                        <h1 className="text-sm text-[#1e722f]">
+                          {plant.type}
                         </h1>
                         <div className="flex gap-x-1 text-sm">
                           <p>Adicionado em: </p>
                           <p>
-                            {new Date(plant.created_at).toLocaleDateString()}
+                            {new Date(plant.date_created).toLocaleDateString()}
                           </p>
                         </div>
                       </div>
@@ -118,14 +175,14 @@ export default function Plants() {
                       <button
                         className="bg-[#1e722f] text-white rounded-3xl px-5 py-3"
                         onClick={() => {
-                          window.location.href = `/dashboard/${plant.id}`;
+                          router.push(`/plant/${plant._id}`);
                         }}
                       >
                         Ver
                       </button>
                       <button
                         className="bg-[#1e722f] text-white rounded-3xl p-3"
-                        onClick={() => deletePlant(plant.id)}
+                        onClick={() => deletePlant(plant._id)}
                       >
                         <Trash2Icon size={25} color="#ffffff" />
                       </button>
