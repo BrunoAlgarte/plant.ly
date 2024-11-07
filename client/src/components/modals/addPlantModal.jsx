@@ -141,11 +141,11 @@ const AddPlantModal = ({ isOpen, onClose, userId }) => {
                       <SelectValue placeholder="Selecione o tipo" />
                     </SelectTrigger>
                     <SelectContent className="bg-[#ffffff] rounded-xl px-2 text-[#1e722f]">
-                      <SelectItem value="Folhosa">Folhosa</SelectItem>
-                      <SelectItem value="Raiz">Raiz</SelectItem>
-                      <SelectItem value="Fruto">Fruto</SelectItem>
-                      <SelectItem value="Leguminosa">Leguminosa</SelectItem>
-                      <SelectItem value="Condimento">Condimento</SelectItem>
+                      <SelectItem value="Folhosas">Folhosa</SelectItem>
+                      <SelectItem value="Raízes">Raiz</SelectItem>
+                      <SelectItem value="Frutos">Fruto</SelectItem>
+                      <SelectItem value="Leguminosas">Leguminosa</SelectItem>
+                      <SelectItem value="Condimentos">Condimento</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
