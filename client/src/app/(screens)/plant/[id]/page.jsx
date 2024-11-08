@@ -99,8 +99,8 @@ export default function Plant() {
               onClick={() => router.push("/plants")}
             />
           </div>
-          <div className="w-full border px-2 py-1">
-            <div className="border-2 border-gray-500 rounded-2xl shadow-lg w-[70%] grid grid-cols-5 mx-auto px-4 py-2 gap-y-2 gap-x-4">
+          <div className="w-full  px-2 py-1">
+            <div className="border-2 border-[#1e722f] bg-white rounded-3xl shadow-lg w-[70%] grid grid-cols-5 mx-auto px-4 py-2 gap-y-2 gap-x-4">
               <div className="col-span-2 flex justify-between items-center px-2">
                 <div className="flex items-center gap-x-2">
                   <div>
@@ -205,8 +205,9 @@ export default function Plant() {
                     <p className="text-2xl font-bold text-[#1e722f]">Temperatura:</p>
                   </div>
                   <div className="flex items-center gap-x-2">
-                    <p>{types?.temperature_min}°C</p>
-                    <p>{types?.temperature_max}°C</p>
+                    <p className="text-[#9b2727]">Min {types?.temperature_min}°C</p>
+                    <p> - </p>
+                    <p className="text-[#1e722f]">Max {types?.temperature_max}°C</p>
                   </div>
                 </div>
 
