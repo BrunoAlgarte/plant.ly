@@ -2,34 +2,32 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const cors = require('cors')
-
+const config = require('./config/config')
+// Middleware configurations
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+  origin: config.cors.origin, // Melhor controle de CORS
+    methods: config.cors.methods,
+    credentials: config.cors.credentials
+}))
 app.use(express.urlencoded({ extended: true }))
 
-
-
+// Database connection with error handling
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('Conectado ao MongoDB'))
     .catch((err) => console.error('Erro ao conectar ao MongoDB', err));
 
-
-const userRoutes = require('./routes/userRoutes');
-app.use('/v1/users', userRoutes);
-
-const plantRoutes = require('./routes/plantRoutes');
-app.use('/v1/plants', plantRoutes);
-
-const authRoutes = require('./routes/authRoutes');
-app.use('/v1/auth', authRoutes);
-
-const speciesRoutes = require('./routes/speciesRoutes');
-app.use('/v1/species', speciesRoutes);
-
-const sensorRoutes = require('./routes/sensorRoutes');
-app.use('/v1/sensors', sensorRoutes);
-
-const notificationRoutes = require('./routes/notificationRoutes')
-app.use('/v1/notifications', notificationRoutes)
-
-module.exports = app;
+// Centralizar rotas em um único objeto
+const routes = {
+    users: require('./routes/user.routes'),
+    plants: require('./routes/plant.routes'),
+    auth: require('./routes/auth.routes'),
+    species: require('./routes/species.routes'),
+    sensors: require('./routes/sensor.routes'),
+    notifications: require('./routes/notification.routes')
+}
+Object.entries(routes).forEach(([name, router]) => {
+    app.use(`/v1/${name}`, router)
+})
+// Usar as rotas centralizadas
+module.exports = app
