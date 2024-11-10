@@ -5,58 +5,95 @@ import { themas } from "../../global/themes";
 export const style = StyleSheet.create({
     container: {
         flex: 1,
+        width: '100%',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: themas.colors.white
     },
     boxTop:{
         height: Dimensions.get('window').height/3,
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center'
-
     },
     boxMid:{
-        height: Dimensions.get('window').height/4,
-        width: '100%',
-        paddingHorizontal:37
-        
-
-    },
-    boxBottom:{
-        height: Dimensions.get('window').height/3,
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center'
-
+        width: '90%',
+        paddingHorizontal: 20,
+        paddingVertical: 30,
+        backgroundColor: themas.colors.primary,
+        borderRadius: 25,
+        elevation: 5,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
     },
     logo:{
-        width:130,
-        height:130
+        width: 150,
+        height: 150,
+        marginBottom: 20
     },
-    text:{
+    welcomeText:{
+        fontSize: 20,
+        color: themas.colors.white,
+        marginBottom: 20,
         fontWeight: 'bold',
-        marginTop:40,
-        fontSize:18
+        alignSelf: 'center'
     },
     titleInput:{
-        marginLeft:5,
-        marginTop: 10,
-        color: themas.colors.gray
+        marginLeft: 5,
+        marginBottom: 5,
+        color: themas.colors.white,
+        fontSize: 12
     },
     boxInput:{
         width: '100%',
-        height: 40,
-        borderWidth:1,
-        borderRadius:40,
-        marginTop:10,
-        flexDirection:'row',
-        alignItems:'center',
-        paddingHorizontal:20
+        height: 50,
+        borderWidth: 2,
+        borderColor: themas.colors.white,
+        borderRadius: 15,
+        marginBottom: 15,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 15,
+        backgroundColor: '#ffffff87'
     },
     input:{
+        flex: 1,
+        height: '100%',
+        marginRight: 10
+    },
+    loginButton: {
         width: '100%',
-        height: '90%',
-        borderRadius:40
+        height: 50,
+        backgroundColor: themas.colors.white,
+        borderRadius: 15,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 10
+    },
+    loginButtonText: {
+        color: themas.colors.primary,
+        fontSize: 16,
+        fontWeight: 'bold'
+    },
+    forgotPassword: {
+        marginTop: 15,
+        color: themas.colors.white
+    },
+    registerContainer: {
+        flexDirection: 'row',
+        marginTop: 10,
+        alignItems: 'center'
+    },
+    registerText: {
+        color: themas.colors.white,
+        fontSize: 12
+    },
+    registerButton: {
+        marginLeft: 5,
+        color: themas.colors.white,
+        fontSize: 14,
+        fontWeight: 'bold'
     }
-
 })

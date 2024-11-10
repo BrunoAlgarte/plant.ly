@@ -4,6 +4,7 @@ export const themas = {
         second: '#19BFB7',
         lightGray: '#d7d8d7',
         gray: 'gray',
-        tgScreen: '#f1f7fa' 
+        tgScreen: '#f1f7fa',
+        white: '#fff'
     }
 }
