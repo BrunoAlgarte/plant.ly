@@ -15,17 +15,19 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../types/navigation';
 
-type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
+type RegisterScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Register'>;
 
-export default function Login(){
+export default function Register(){
+    const navigation = useNavigation<RegisterScreenNavigationProp>();
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
-    const navigation = useNavigation<LoginScreenNavigationProp>();
 
-    const handleLogin = () => {
+    const handleRegister = () => {
         setLoading(true);
-        // Implementar lógica de login aqui
+        // Implementar lógica de cadastro aqui
     }
 
     return(
@@ -39,8 +41,22 @@ export default function Login(){
             </View>
             
             <View style={style.boxMid}>
-                {/* <Text style={style.welcomeText}>Faça login para continuar</Text> */}
-                
+                <Text style={style.titleInput}>NOME COMPLETO</Text>
+                <View style={style.boxInput}>
+                    <TextInput 
+                        style={style.input}
+                        value={name}
+                        onChangeText={setName}
+                        placeholder="Digite seu nome completo"
+                        autoCapitalize="words"
+                    />
+                    <MaterialIcons 
+                        name="person"
+                        size={20}
+                        color={themas.colors.primary}
+                    />
+                </View>
+
                 <Text style={style.titleInput}>ENDEREÇO E-MAIL</Text>
                 <View style={style.boxInput}>
                     <TextInput 
@@ -74,26 +90,38 @@ export default function Login(){
                     />
                 </View>
 
+                <Text style={style.titleInput}>CONFIRMAR SENHA</Text>
+                <View style={style.boxInput}>
+                    <TextInput 
+                        style={style.input}
+                        value={confirmPassword}
+                        onChangeText={setConfirmPassword}
+                        placeholder="Confirme sua senha"
+                        secureTextEntry
+                    />
+                    <MaterialIcons 
+                        name="lock"
+                        size={20}
+                        color={themas.colors.primary}
+                    />
+                </View>
+
                 <TouchableOpacity 
                     style={style.loginButton}
-                    onPress={handleLogin}
+                    onPress={handleRegister}
                     disabled={loading}
                 >
                     {loading ? (
                         <ActivityIndicator color={themas.colors.primary} />
                     ) : (
-                        <Text style={style.loginButtonText}>Login</Text>
+                        <Text style={style.loginButtonText}>Cadastrar</Text>
                     )}
                 </TouchableOpacity>
 
-                <TouchableOpacity>
-                    <Text style={style.forgotPassword}>Alterar senha</Text>
-                </TouchableOpacity>
-
                 <View style={style.registerContainer}>
-                    <Text style={style.registerText}>Não tem uma conta?</Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                        <Text style={style.registerButton}>Criar conta</Text>
+                    <Text style={style.registerText}>Já tem uma conta?</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                        <Text style={style.registerButton}>Fazer login</Text>
                     </TouchableOpacity>
                 </View>
             </View>

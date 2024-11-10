@@ -8,7 +8,6 @@ servers:
     description: Servidor local para a API
 
 paths:
-
   #### Usuários ####
   /v1/users:
     post:
@@ -34,11 +33,6 @@ paths:
                   description: Senha do usuário
                   format: password
                   example: SenhaForte123!
-                plants:
-                  type: array
-                  description: Lista de plantas associadas ao usuário
-                  items:
-                    type: string
       responses:
         '201':
           description: Usuário criado com sucesso
@@ -53,33 +47,16 @@ paths:
                   id:
                     type: string
                     example: 64fd87ef7345b
-                  user:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                        example: João da Silva
-                      email:
-                        type: string
-                        example: joao@email.com
-                      plants:
-                        type: array
-                        items:
-                          type: string
-        '500':
-          description: Erro ao criar o usuário
 
   /v1/users/{id}:
     get:
       summary: Buscar usuário por ID
-      description: Retorna os detalhes de um usuário com base no ID
       parameters:
         - in: path
           name: id
           required: true
           schema:
             type: string
-            example: 64fd87ef7345b
       responses:
         '200':
           description: Dados do usuário encontrados
@@ -90,119 +67,27 @@ paths:
                 properties:
                   id:
                     type: string
-                    example: 64fd87ef7345b
                   name:
                     type: string
-                    example: João da Silva
                   email:
                     type: string
-                    example: joao@email.com
                   plants:
                     type: array
                     items:
                       type: string
         '404':
           description: Usuário não encontrado
-        '500':
-          description: Erro ao buscar o usuário
-
-  #### Autenticação ####
-  /v1/auth/login:
-    post:
-      summary: Login de usuário
-      description: Faz login e autentica o usuário
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  description: Email do usuário
-                  example: joao@email.com
-                password:
-                  type: string
-                  description: Senha do usuário
-                  format: password
-                  example: SenhaForte123!
-      responses:
-        '200':
-          description: Login realizado com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Login realizado com sucesso!
-                  user:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        example: 64fd87ef7345b
-                      name:
-                        type: string
-                        example: João da Silva
-                      email:
-                        type: string
-                        example: joao@email.com
-        '404':
-          description: Usuário não encontrado
-        '401':
-          description: Senha incorreta
-        '500':
-          description: Erro no servidor
-
-  /v1/auth/resetPassword:
-    patch:
-      summary: Alterar senha
-      description: Atualiza a senha do usuário
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  example: joao@email.com
-                current_password:
-                  type: string
-                  example: SenhaAntiga123!
-                new_password:
-                  type: string
-                  example: NovaSenha123!
-                password_validation:
-                  type: string
-                  example: NovaSenha123!
-      responses:
-        '200':
-          description: Senha alterada com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Senha alterada com sucesso!
-        '404':
-          description: Usuário não encontrado
-        '400':
-          description: Senhas não coincidem
-        '500':
-          description: Erro no servidor
 
   #### Plantas ####
-  /v1/plants/user/:user_id:
+  /v1/plants/user/{user_id}:
     post:
       summary: Cadastrar uma nova planta
-      description: Associa a planta a um usuário e uma espécie
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: string
       requestBody:
         required: true
         content:
@@ -210,18 +95,15 @@ paths:
             schema:
               type: object
               properties:
-                user_id:
-                  type: string
-                  description: ID do usuário
-                  example: 64fd87ef7345b
                 name:
                   type: string
-                  description: Nome da planta
                   example: Cebolinha
                 type:
                   type: string
-                  description: Tipo da planta (Espécie)
-                  example: Hortaliça
+                  example: Folhosas
+                image:
+                  type: string
+                  format: base64
       responses:
         '201':
           description: Planta cadastrada com sucesso
@@ -232,63 +114,75 @@ paths:
                 properties:
                   plant_id:
                     type: string
-                    example: 758fdc4eb72
                   message:
                     type: string
-                    example: Planta cadastrada com sucesso e associada ao usuário e à espécie
-        '404':
-          description: Usuário ou espécie não encontrada
-        '500':
-          description: Erro ao cadastrar a planta
-    
+
     get:
-      summary: Buscar as plantas de um usuário
-      description: Retorna as planta com base no ID do usuário
+      summary: Listar plantas do usuário
       parameters:
         - in: path
           name: user_id
           required: true
           schema:
             type: string
-            example: 758fdc4eb72
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
       responses:
         '200':
-          description: Plantas encontradas
+          description: Lista de plantas
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  id:
-                    type: string
-                    example: 758fdc4eb72
-                  name:
-                    type: string
-                    example: Cebolinha
-                  type:
-                    type: string
-                    example: Hortaliça
-        '404':
-          description: Planta não encontrada
-        '400':
-          description: ID do usuário inválido
-        '500':
-          description: Erro ao buscar a planta
+                  plants:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        type:
+                          type: string
+                        image:
+                          type: string
+                        date_created:
+                          type: string
+                          format: date-time
+                  pagination:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                      page:
+                        type: integer
+                      pages:
+                        type: integer
+                      hasMore:
+                        type: boolean
 
   /v1/plants/{id}:
     get:
-      summary: Buscar detalhes de uma planta
-      description: Retorna os detalhes de uma planta com base no ID
+      summary: Buscar planta por ID
       parameters:
         - in: path
           name: id
           required: true
           schema:
             type: string
-            example: 758fdc4eb72
       responses:
         '200':
-          description: Dados da planta encontrados
+          description: Detalhes da planta
           content:
             application/json:
               schema:
@@ -296,28 +190,26 @@ paths:
                 properties:
                   id:
                     type: string
-                    example: 758fdc4eb72
                   name:
                     type: string
-                    example: Cebolinha
                   type:
                     type: string
-                    example: Hortaliça
-        '404':
-          description: Planta não encontrada
-        '500':
-          description: Erro ao buscar a planta
+                  image:
+                    type: string
+                  date_created:
+                    type: string
+                    format: date-time
+                  user_id:
+                    type: string
 
     delete:
       summary: Deletar uma planta
-      description: Exclui uma planta com base no ID
       parameters:
         - in: path
           name: id
           required: true
           schema:
             type: string
-            example: 758fdc4eb72
       responses:
         '200':
           description: Planta deletada com sucesso
@@ -328,132 +220,41 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: Planta deletada com sucesso
-        '404':
-          description: Planta não encontrada
-        '500':
-          description: Erro ao deletar a planta
 
-  #### Espécies ####
-  /v1/spieces/{id}:
-    get:
-      summary: Buscar dados de uma espécie
-      description: Retorna os detalhes de uma espécie
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-            example: 648a4f2eae23
+  #### Autenticação ####
+  /v1/auth/login:
+    post:
+      summary: Login de usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+                  format: password
       responses:
         '200':
-          description: Dados da espécie encontrados
+          description: Login realizado com sucesso
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  name:
+                  message:
                     type: string
-                    example: Hortelã
-                  scientific_name:
-                    type: string
-                    example: Mentha spicata
-                  watering_tips:
-                    type: string
-                    example: Regar 2 vezes por semana
-                  sunlight_tips:
-                    type: string
-                    example: Luz solar direta
-                  soil_tips:
-                    type: string
-                    example: Solo fértil e bem drenado
-        '404':
-          description: Espécie não encontrada
-        '500':
-          description: Erro ao buscar a espécie
-
-  #### Sensores ####
-  /v1/sensors:
-    get:
-      summary: Buscar dados dos sensores
-      description: Retorna dados dos sensores com filtros por planta, data, temperatura e umidade
-      parameters:
-        - name: plant_id
-          in: query
-          required: true
-          schema:
-            type: string
-            example: 64fd87ef7345b
-        - name: start_date
-          in: query
-          schema:
-            type: string
-            format: date-time
-            example: 2024-10-01T00:00:00Z
-        - name: end_date
-          in: query
-          schema:
-            type: string
-            format: date-time
-            example: 2024-10-10T23:59:59Z
-        - name: temperature_min
-          in: query
-          schema:
-            type: number
-            example: 20.0
-        - name: temperature_max
-          in: query
-          schema:
-            type: number
-            example: 30.0
-        - name: humidity_min
-          in: query
-          schema:
-            type: number
-            example: 40.0
-        - name: humidity_max
-          in: query
-          schema:
-            type: number
-            example: 70.0
-        - name: soil_moisture_status
-          in: query
-          schema:
-            type: string
-            example: Úmido
-      responses:
-        '200':
-          description: Lista de dados dos sensores filtrados
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    plant:
-                      type: string
-                      example: Cebolinha
-                    temperature_air:
-                      type: number
-                      example: 26.7
-                    humidity_air:
-                      type: number
-                      example: 54.4
-                    soil_moisture:
-                      type: string
-                      example: Úmido
-                    timestamp:
-                      type: string
-                      format: date-time
-                      example: 2024-10-10T14:46:14Z
-                    week:
-                      type: integer
-                      example: 1
-        '500':
-          description: Erro ao buscar dados dos sensores
-
-  ##/v1/notifications:
-          
+                  user:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                      email:
+                        type: string
+        '401':
+          description: Credenciais inválidas

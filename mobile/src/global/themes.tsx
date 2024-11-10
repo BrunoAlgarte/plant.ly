@@ -5,6 +5,9 @@ export const themas = {
         lightGray: '#d7d8d7',
         gray: 'gray',
         tgScreen: '#f1f7fa',
-        white: '#fff'
+        white: '#fff',
+        text: '#000',
+        textInput: '#f1f7fa',
+        background: '#f1f7fa'
     }
 }
