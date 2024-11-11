@@ -4,7 +4,7 @@ const plantController = require('../controllers/plantController');
 const validateRequest = require('../middlewares/validateRequest');
 const plantSchema = require('../schemas/plantSchema');
 
-router.post('/:user_id', 
+router.post('/user/:user_id', 
     validateRequest(plantSchema), 
     plantController.newPlant
 );
