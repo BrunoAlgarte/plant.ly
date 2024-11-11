@@ -23,7 +23,11 @@ paths:
                 name:
                   type: string
                   description: Nome do usuário
-                  example: João da Silva
+                  example: João
+                last_name:
+                  type: string
+                  description: Sobrenome do usuário
+                  example: da Silva  
                 email:
                   type: string
                   description: Email do usuário

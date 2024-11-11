@@ -28,22 +28,29 @@ const resetPasswordSchema = Joi.object({
             'any.required': 'Email é obrigatório'
         }),
     
-    oldPassword: Joi.string()
+    current_password: Joi.string()
         .required()
         .messages({
             'string.empty': 'Senha atual é obrigatória',
             'any.required': 'Senha atual é obrigatória'
         }),
     
-    newPassword: Joi.string()
+    new_password: Joi.string()
         .min(6)
         .required()
-        .not(Joi.ref('oldPassword'))
+        .not(Joi.ref('current_password'))
         .messages({
             'string.empty': 'Nova senha é obrigatória',
             'string.min': 'Nova senha deve ter no mínimo 6 caracteres',
             'any.required': 'Nova senha é obrigatória',
             'any.invalid': 'Nova senha deve ser diferente da senha atual'
+        }),
+    
+    password_validation: Joi.string()
+        .required()
+        .messages({
+            'string.empty': 'Confirmação de senha é obrigatória',
+            'any.required': 'Confirmação de senha é obrigatória'
         })
 })
 

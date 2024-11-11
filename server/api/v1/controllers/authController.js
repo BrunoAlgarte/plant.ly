@@ -47,7 +47,16 @@ controller.resetPassword = async (req, res) => {
         }
 
         // Verifica se a senha atual está correta
-        const validPassword = await bcrypt.compare(current_password, user.password);
+        console.log('Senha fornecida:', current_password);
+        console.log('Hash armazenado:', user.password);
+        
+        const validPassword = await bcrypt.compare(
+            current_password.trim(), // trim apenas na senha fornecida
+            user.password // não usar trim no hash
+        );
+        
+        console.log('Resultado da comparação:', validPassword);
+
         if (!validPassword) {
             return res.status(401).json({message: 'Senha atual incorreta'});
         }
