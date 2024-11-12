@@ -105,7 +105,7 @@ export default function Plant() {
                 <div className="flex items-center gap-x-2">
                   <div>
                     <Image
-                      src={plant.image_url || "/img/plante_03.jpg"}
+                      src={plant.image || "/img/plante_03.jpg"}
                       alt="Planta"
                       width={200}
                       height={200}

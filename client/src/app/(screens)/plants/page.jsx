@@ -32,7 +32,7 @@ export default function Plants() {
       }
 
       const { data } = await api.get(`/v1/plants/user/${user_id}`);
-      setPlants(data);
+      setPlants(data.plants);
     } catch (error) {
       toast.error("Erro ao buscar plantas. Tente novamente.", {
         position: "top-center",
@@ -117,14 +117,14 @@ export default function Plants() {
               >
                 Adicionar
                 <LeafIcon size={30} color="#ffffff" />
-                <AddPlantModal
-                  isOpen={isModalOpen}
-                  onClose={closeModal}
-                  userId={user_id}
-                  onPlantAdded={fetchPlants}
-                />
               </button>
             </div>
+            <AddPlantModal
+              isOpen={isModalOpen}
+              onClose={closeModal}
+              userId={user_id}
+              onPlantAdded={fetchPlants}
+            />
             <div className="flex flex-col p-2 gap-y-3 overflow-y-auto">
               {loading ? (
                 <div className="flex justify-center items-center h-full py-10">
@@ -150,7 +150,7 @@ export default function Plants() {
                   >
                     <div className="flex gap-x-3 items-center">
                       <Image
-                        src={plant.image_url || "/img/floresta.jpg"}
+                        src={plant.image || "/img/floresta.jpg"}
                         width={150}
                         height={150}
                         alt={plant.name}

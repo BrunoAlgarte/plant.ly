@@ -32,7 +32,7 @@ export default function Dashboard() {
       }
 
       const { data } = await api.get(`/v1/plants/user/${user_id}`);
-      setPlants(data);
+      setPlants(data.plants);
     } catch (error) {
       console.error("Erro ao buscar plantas:", error);
     } finally {
@@ -73,7 +73,7 @@ export default function Dashboard() {
                     onClick={() => setSelectedPlant(plant.name)}
                   >
                     <Image
-                      src={plant.image_url || "/img/floresta.jpg"}
+                      src={plant.image || "/img/floresta.jpg"}
                       width={150}
                       height={150}
                       alt={plant.name}
