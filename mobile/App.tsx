@@ -24,7 +24,8 @@ export default function App() {
         />
         <Stack.Screen 
           name="Register" 
-          component={Register} 
+          component={Register}
+          options={{ headerShown: false }}          
         />
       </Stack.Navigator>
     </NavigationContainer>
