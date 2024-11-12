@@ -5,7 +5,8 @@ import {
     Image,
     TextInput,
     TouchableOpacity,
-    ActivityIndicator 
+    ActivityIndicator,
+    Alert 
 } from "react-native";
 import Logo from "../../assets/logo.png";
 import { style } from "./styles";
@@ -14,18 +15,54 @@ import { themas } from "../../global/themes";
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../types/navigation';
+import api from "../../utils/api";
+import axios from "axios";
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
 
+interface LoginResponse {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+  };
+  token: string;
+}
+
+interface ApiError {
+  response?: {
+    data?: {
+      message?: string;
+    };
+  };
+}
+
 export default function Login(){
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [loading, setLoading] = useState(false);
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
     const navigation = useNavigation<LoginScreenNavigationProp>();
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         setLoading(true);
-        // Implementar lógica de login aqui
+        try {
+            const response = await api.post<LoginResponse>("/v1/auth/login", {
+                email,
+                password,
+            });
+
+            const { user, token } = response.data;
+            Alert.alert("Sucesso", "Login realizado com sucesso!");
+            
+        } catch (error) {
+            const mensagem = axios.isAxiosError(error) 
+                ? error.response?.data?.message || "Erro de autenticação"
+                : "Ocorreu um erro inesperado";
+                
+            Alert.alert("Erro", mensagem);
+        } finally {
+            setLoading(false);
+        }
     }
 
     return(

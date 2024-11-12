@@ -5,7 +5,8 @@ import {
     Image,
     TextInput,
     TouchableOpacity,
-    ActivityIndicator 
+    ActivityIndicator,
+    Alert 
 } from "react-native";
 import Logo from "../../assets/logo.png";
 import { style } from "./styles";
@@ -14,20 +15,79 @@ import { themas } from "../../global/themes";
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../types/navigation';
+import api from "../../utils/api";
+import axios from "axios";
 
 type RegisterScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Register'>;
+
+interface RegisterResponse {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+  };
+}
 
 export default function Register(){
     const navigation = useNavigation<RegisterScreenNavigationProp>();
     const [name, setName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
+        if (!name || !lastName || !email || !password || !confirmPassword) {
+            Alert.alert("Erro", "Por favor, preencha todos os campos");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            Alert.alert("Erro", "As senhas não coincidem");
+            return;
+        }
+
         setLoading(true);
-        // Implementar lógica de cadastro aqui
+        try {
+            const payload = {
+                name: name.trim(),
+                last_name: lastName.trim(),
+                email: email.toLowerCase().trim(),
+                password: password.trim(),
+                plants: []
+            };
+            
+            console.log('Payload sendo enviado:', payload);
+            
+            const response = await api.post<RegisterResponse>("/v1/users", payload);
+            console.log('Resposta do servidor:', response.data);
+
+            if (response.status === 201) {
+                Alert.alert("Sucesso", "Cadastro realizado com sucesso!", [
+                    {
+                        text: "OK",
+                        onPress: () => navigation.navigate('Login')
+                    }
+                ]);
+            }
+        } catch (error) {
+            console.log('Erro completo:', error);
+            if (axios.isAxiosError(error)) {
+                console.log('Detalhes do erro:', {
+                    status: error.response?.status,
+                    data: error.response?.data,
+                    headers: error.response?.headers
+                });
+            }
+            const mensagem = axios.isAxiosError(error) 
+                ? error.response?.data?.message || "Erro ao realizar cadastro"
+                : "Ocorreu um erro inesperado";
+                
+            Alert.alert("Erro", mensagem);
+        } finally {
+            setLoading(false);
+        }
     }
 
     return(
@@ -41,13 +101,29 @@ export default function Register(){
             </View>
             
             <View style={style.boxMid}>
-                <Text style={style.titleInput}>NOME COMPLETO</Text>
+                <Text style={style.titleInput}>NOME</Text>
                 <View style={style.boxInput}>
                     <TextInput 
                         style={style.input}
                         value={name}
                         onChangeText={setName}
-                        placeholder="Digite seu nome completo"
+                        placeholder="Digite seu nome"
+                        autoCapitalize="words"
+                    />
+                    <MaterialIcons 
+                        name="person"
+                        size={20}
+                        color={themas.colors.primary}
+                    />
+                </View>
+
+                <Text style={style.titleInput}>SOBRENOME</Text>
+                <View style={style.boxInput}>
+                    <TextInput 
+                        style={style.input}
+                        value={lastName}
+                        onChangeText={setLastName}
+                        placeholder="Digite seu sobrenome"
                         autoCapitalize="words"
                     />
                     <MaterialIcons 
