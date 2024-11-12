@@ -123,7 +123,7 @@ export default function Login(){
                     )}
                 </TouchableOpacity>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
                     <Text style={style.forgotPassword}>Alterar senha</Text>
                 </TouchableOpacity>
 

@@ -1,7 +1,6 @@
 import { Dimensions, StyleSheet } from "react-native";
 import { themas } from "../../global/themes";
 
-
 export const style = StyleSheet.create({
     container: {
         flex: 1,
@@ -10,13 +9,13 @@ export const style = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: themas.colors.white
     },
-    boxTop:{
+    boxTop: {
         height: Dimensions.get('window').height/3,
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center'
     },
-    boxMid:{
+    boxMid: {
         width: '90%',
         paddingHorizontal: 20,
         paddingVertical: 30,
@@ -28,25 +27,18 @@ export const style = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
     },
-    logo:{
+    logo: {
         width: 150,
         height: 150,
         marginBottom: 20
     },
-    welcomeText:{
-        fontSize: 20,
-        color: themas.colors.white,
-        marginBottom: 20,
-        fontWeight: 'bold',
-        alignSelf: 'center'
-    },
-    titleInput:{
+    titleInput: {
         marginLeft: 5,
         marginBottom: 5,
         color: themas.colors.white,
         fontSize: 12
     },
-    boxInput:{
+    boxInput: {
         width: '100%',
         height: 50,
         borderWidth: 2,
@@ -58,7 +50,7 @@ export const style = StyleSheet.create({
         paddingHorizontal: 15,
         backgroundColor: '#ffffff87'
     },
-    input:{
+    input: {
         flex: 1,
         height: '100%',
         marginRight: 10
@@ -77,19 +69,10 @@ export const style = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold'
     },
-    forgotPassword: {
-        marginTop: 15,
-        color: themas.colors.white,
-        fontWeight: 'bold'
-    },
     registerContainer: {
         flexDirection: 'row',
         marginTop: 10,
         alignItems: 'center'
-    },
-    registerText: {
-        color: themas.colors.white,
-        fontSize: 12
     },
     registerButton: {
         marginLeft: 5,
@@ -97,4 +80,4 @@ export const style = StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold'
     }
-})
+});
