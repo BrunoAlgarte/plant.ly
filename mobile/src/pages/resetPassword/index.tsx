@@ -15,17 +15,18 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../types/navigation';
 
-type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
+type ResetPasswordScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'ResetPassword'>;
 
-export default function Login(){
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+export default function ResetPassword(){
+    const navigation = useNavigation<ResetPasswordScreenNavigationProp>();
+    const [currentPassword, setCurrentPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [loading, setLoading] = useState(false);
-    const navigation = useNavigation<LoginScreenNavigationProp>();
 
-    const handleLogin = () => {
+    const handleResetPassword = () => {
         setLoading(true);
-        // Implementar lógica de login aqui
+        // Implementar lógica de reset de senha aqui
     }
 
     return(
@@ -39,32 +40,45 @@ export default function Login(){
             </View>
             
             <View style={style.boxMid}>
-                {/* <Text style={style.welcomeText}>Faça login para continuar</Text> */}
-                
-                <Text style={style.titleInput}>ENDEREÇO E-MAIL</Text>
+                <Text style={style.titleInput}>SENHA ATUAL</Text>
                 <View style={style.boxInput}>
                     <TextInput 
                         style={style.input}
-                        value={email}
-                        onChangeText={setEmail}
-                        placeholder="Digite seu e-mail"
-                        keyboardType="email-address"
-                        autoCapitalize="none"
+                        value={currentPassword}
+                        onChangeText={setCurrentPassword}
+                        placeholder="Digite sua senha atual"
+                        secureTextEntry
                     />
                     <MaterialIcons 
-                        name="email"
+                        name="lock"
                         size={20}
                         color={themas.colors.primary}
                     />
                 </View>
 
-                <Text style={style.titleInput}>SENHA</Text>
+                <Text style={style.titleInput}>NOVA SENHA</Text>
                 <View style={style.boxInput}>
                     <TextInput 
                         style={style.input}
-                        value={password}
-                        onChangeText={setPassword}
-                        placeholder="Digite sua senha"
+                        value={newPassword}
+                        onChangeText={setNewPassword}
+                        placeholder="Digite sua nova senha"
+                        secureTextEntry
+                    />
+                    <MaterialIcons 
+                        name="lock"
+                        size={20}
+                        color={themas.colors.primary}
+                    />
+                </View>
+
+                <Text style={style.titleInput}>CONFIRMAR NOVA SENHA</Text>
+                <View style={style.boxInput}>
+                    <TextInput 
+                        style={style.input}
+                        value={confirmPassword}
+                        onChangeText={setConfirmPassword}
+                        placeholder="Confirme sua nova senha"
                         secureTextEntry
                     />
                     <MaterialIcons 
@@ -76,24 +90,19 @@ export default function Login(){
 
                 <TouchableOpacity 
                     style={style.loginButton}
-                    onPress={handleLogin}
+                    onPress={handleResetPassword}
                     disabled={loading}
                 >
                     {loading ? (
                         <ActivityIndicator color={themas.colors.primary} />
                     ) : (
-                        <Text style={style.loginButtonText}>Login</Text>
+                        <Text style={style.loginButtonText}>Alterar Senha</Text>
                     )}
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
-                    <Text style={style.forgotPassword}>Alterar senha</Text>
-                </TouchableOpacity>
-
                 <View style={style.registerContainer}>
-                    <Text style={style.registerText}>Não tem uma conta?</Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-                        <Text style={style.registerButton}>Criar conta</Text>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Text style={style.registerButton}>Voltar</Text>
                     </TouchableOpacity>
                 </View>
             </View>
