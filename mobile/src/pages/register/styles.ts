@@ -10,7 +10,7 @@ export const style = StyleSheet.create({
         backgroundColor: themas.colors.white
     },
     boxTop: {
-        height: Dimensions.get('window').height/3,
+        height: Dimensions.get('window').height/5,
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center'
@@ -30,7 +30,7 @@ export const style = StyleSheet.create({
     logo: {
         width: 150,
         height: 150,
-        marginBottom: 20
+        marginBottom: 1
     },
     welcomeText: {
         fontSize: 20,

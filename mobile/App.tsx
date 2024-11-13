@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from "./src/pages/login";
 import Register from "./src/pages/register";
 import ResetPassword from "./src/pages/resetPassword";
+import Main from "./src/pages/main";
 import { RootStackParamList } from './src/types/navigation';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -31,6 +32,11 @@ export default function App() {
         <Stack.Screen 
           name="ResetPassword" 
           component={ResetPassword}
+          options={{ headerShown: false }}          
+        />
+        <Stack.Screen 
+          name="Main" 
+          component={Main}
           options={{ headerShown: false }}          
         />
       </Stack.Navigator>

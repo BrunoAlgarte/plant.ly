@@ -17,6 +17,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../types/navigation';
 import api from "../../utils/api";
 import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
 
@@ -45,16 +46,44 @@ export default function Login(){
 
     const handleLogin = async () => {
         setLoading(true);
+        console.log('Iniciando processo de login...');
+        console.log('Dados enviados:', { email, password });
+
         try {
+            console.log('Fazendo requisição para API...');
             const response = await api.post<LoginResponse>("/v1/auth/login", {
                 email,
                 password,
             });
 
+            console.log('Resposta da API:', response.data);
             const { user, token } = response.data;
-            Alert.alert("Sucesso", "Login realizado com sucesso!");
             
+            console.log('Salvando dados no AsyncStorage...');
+            console.log('UserID:', user.id);
+            console.log('Token:', token);
+
+            try {
+                await AsyncStorage.setItem('@PlantApp:userId', user.id);
+                await AsyncStorage.setItem('@PlantApp:token', token);
+                console.log('Dados salvos com sucesso no AsyncStorage');
+            } catch (storageError) {
+                console.error('Erro ao salvar no AsyncStorage:', storageError);
+            }
+            
+            Alert.alert("Sucesso", "Login realizado com sucesso!");
+            navigation.navigate('Main');
         } catch (error) {
+            console.error('Erro durante o login:', error);
+            
+            if (axios.isAxiosError(error)) {
+                console.log('Detalhes do erro Axios:', {
+                    status: error.response?.status,
+                    data: error.response?.data,
+                    message: error.message
+                });
+            }
+
             const mensagem = axios.isAxiosError(error) 
                 ? error.response?.data?.message || "Erro de autenticação"
                 : "Ocorreu um erro inesperado";
