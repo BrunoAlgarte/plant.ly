@@ -133,7 +133,7 @@ export function MainScreen() {
 
                 <TouchableOpacity 
                     style={style.addButton}
-                    // onPress={() => navigation.navigate('AddPlant')}
+                    onPress={() => navigation.navigate('AddPlant')}
                 >
                     <Text style={style.addButtonText}>Adicionar Planta</Text>
                 </TouchableOpacity>

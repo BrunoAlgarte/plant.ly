@@ -4,4 +4,5 @@ export type RootStackParamList = {
     ResetPassword: undefined;
     Main: undefined;
     PlantDetails: { id: string };
+    AddPlant: undefined;
 }; 

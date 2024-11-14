@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from "./src/pages/login";
 import Register from "./src/pages/register";
 import PlantDetails from "./src/pages/plantDetails";
+import AddPlant from "./src/pages/addPlant";
 import ResetPassword from "./src/pages/resetPassword";
 import Main from "./src/pages/main";
 import { RootStackParamList } from './src/types/navigation';
@@ -41,6 +42,10 @@ export default function App() {
         <Stack.Screen 
           name="PlantDetails" 
           component={PlantDetails}
+        />
+        <Stack.Screen 
+          name="AddPlant" 
+          component={AddPlant}
         />
       </Stack.Navigator>
     </NavigationContainer>
