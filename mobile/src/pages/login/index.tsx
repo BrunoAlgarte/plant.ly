@@ -57,15 +57,13 @@ export default function Login(){
             });
 
             console.log('Resposta da API:', response.data);
-            const { user, token } = response.data;
+            const { user } = response.data;
             
             console.log('Salvando dados no AsyncStorage...');
             console.log('UserID:', user.id);
-            console.log('Token:', token);
 
             try {
                 await AsyncStorage.setItem('@PlantApp:userId', user.id);
-                await AsyncStorage.setItem('@PlantApp:token', token);
                 console.log('Dados salvos com sucesso no AsyncStorage');
             } catch (storageError) {
                 console.error('Erro ao salvar no AsyncStorage:', storageError);

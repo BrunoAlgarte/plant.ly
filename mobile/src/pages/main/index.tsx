@@ -66,6 +66,15 @@ export function MainScreen() {
         }
     };
 
+    const handleLogout = async () => {
+        try {
+            await AsyncStorage.removeItem('@PlantApp:userId');
+            navigation.navigate('Login');
+        } catch (error) {
+            Alert.alert('Erro', 'Não foi possível fazer logout');
+        }
+    };
+
     useEffect(() => {
         fetchPlants();
     }, []);
@@ -89,7 +98,7 @@ export function MainScreen() {
             <View style={style.buttonContainer}>
                 <TouchableOpacity 
                     style={style.viewButton}
-                    // onPress={() => navigation.navigate('PlantDetails', { id: item._id })}
+                    onPress={() => navigation.navigate('PlantDetails', { id: item._id })}
                 >
                     <Text style={style.buttonText}>Ver</Text>
                 </TouchableOpacity>
@@ -115,13 +124,19 @@ export function MainScreen() {
                 <View style={style.header}>
                     <Text style={style.title}>Minhas plantas</Text>
                     <TouchableOpacity 
-                        style={style.addButton}
-                        // onPress={() => navigation.navigate('AddPlant')}
+                        style={style.logoutButton}
+                        onPress={handleLogout}
                     >
-                        <Text style={style.addButtonText}>Adicionar</Text>
-                        {/* <Feather name="leaf" size={24} color={themas.colors.white} /> */}
+                        <Text style={style.logoutButtonText}>Sair</Text>
                     </TouchableOpacity>
                 </View>
+
+                <TouchableOpacity 
+                    style={style.addButton}
+                    // onPress={() => navigation.navigate('AddPlant')}
+                >
+                    <Text style={style.addButtonText}>Adicionar Planta</Text>
+                </TouchableOpacity>
 
                 {loading ? (
                     <ActivityIndicator size="large" color={themas.colors.primary} />

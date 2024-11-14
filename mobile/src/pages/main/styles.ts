@@ -64,8 +64,10 @@ export const style = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 20,
-        marginTop: 10,
+        paddingHorizontal: 2,
+        paddingVertical: 15,
+        borderBottomWidth: 1,
+        borderBottomColor: themas.colors.white,
     },
     title: {
         fontSize: 28,
@@ -74,16 +76,15 @@ export const style = StyleSheet.create({
     },
     addButton: {
         backgroundColor: themas.colors.primary,
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 12,
-        borderRadius: 25,
-        gap: 8,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 8,
+        alignSelf: 'flex-end',
     },
     addButtonText: {
         color: themas.colors.white,
-        fontSize: 16,
-        fontWeight: '500',
+        fontSize: 14,
+        fontWeight: 'bold',
     },
     plantList: {
         gap: 12,
@@ -161,5 +162,16 @@ export const style = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: themas.colors.primary,
+    },
+    logoutButton: {
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderRadius: 20,
+        backgroundColor: themas.colors.primary,
+    },
+    logoutButtonText: {
+        color: themas.colors.white,
+        fontSize: 14,
+        fontWeight: 'bold',
     },
 }); 

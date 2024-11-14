@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from "./src/pages/login";
 import Register from "./src/pages/register";
+import PlantDetails from "./src/pages/plantDetails";
 import ResetPassword from "./src/pages/resetPassword";
 import Main from "./src/pages/main";
 import { RootStackParamList } from './src/types/navigation';
@@ -17,7 +18,8 @@ export default function App() {
       <Stack.Navigator 
         initialRouteName="Login"
         screenOptions={{
-          headerShown: false
+          headerShown: false,
+          animation: 'slide_from_right'
         }}
       >
         <Stack.Screen 
@@ -27,17 +29,18 @@ export default function App() {
         <Stack.Screen 
           name="Register" 
           component={Register}
-          options={{ headerShown: false }}          
         />
         <Stack.Screen 
           name="ResetPassword" 
           component={ResetPassword}
-          options={{ headerShown: false }}          
         />
         <Stack.Screen 
           name="Main" 
           component={Main}
-          options={{ headerShown: false }}          
+        />
+        <Stack.Screen 
+          name="PlantDetails" 
+          component={PlantDetails}
         />
       </Stack.Navigator>
     </NavigationContainer>
