@@ -7,258 +7,344 @@ servers:
   - url: http://localhost:3030
     description: Servidor local para a API
 
+tags:
+  - name: users
+    description: Endpoints relacionados aos usuários
+  - name: auth
+    description: Endpoints relacionados à autenticação
+  - name: plants
+    description: Endpoints relacionados às plantas
+  - name: sensors
+    description: Endpoints relacionados aos dados dos sensores
+
 paths:
-  #### Usuários ####
   /v1/users:
     post:
-      summary: Cadastrar um novo usuário
-      description: Cria um novo usuário e retorna o ID e os dados cadastrados
+      tags:
+        - users
+      summary: Criação de novo usuário
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: Nome do usuário
-                  example: João
-                last_name:
-                  type: string
-                  description: Sobrenome do usuário
-                  example: da Silva  
-                email:
-                  type: string
-                  description: Email do usuário
-                  example: joao@email.com
-                password:
-                  type: string
-                  description: Senha do usuário
-                  format: password
-                  example: SenhaForte123!
+              $ref: '#/components/schemas/UserRequest'
       responses:
-        '201':
-          description: Usuário criado com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: Usuário criado com sucesso!
-                  id:
-                    type: string
-                    example: 64fd87ef7345b
+        201:
+          description: Usuário criado com sucesso.
+        400:
+          description: Requisição inválida.
+        500:
+          description: Erro interno do servidor.
 
-  /v1/users/{id}:
+  /v1/sensors:
     get:
-      summary: Buscar usuário por ID
+      tags:
+        - sensors
+      summary: Obter dados dos sensores
       parameters:
-        - in: path
-          name: id
+        - name: plantid
+          in: query
           required: true
           schema:
             type: string
-      responses:
-        '200':
-          description: Dados do usuário encontrados
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                  name:
-                    type: string
-                  email:
-                    type: string
-                  plants:
-                    type: array
-                    items:
-                      type: string
-        '404':
-          description: Usuário não encontrado
-
-  #### Plantas ####
-  /v1/plants/user/{user_id}:
-    post:
-      summary: Cadastrar uma nova planta
-      parameters:
-        - in: path
-          name: user_id
-          required: true
+            description: ID da planta.
+        - name: startDate
+          in: query
           schema:
             type: string
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  example: Cebolinha
-                type:
-                  type: string
-                  example: Folhosas
-                image:
-                  type: string
-                  format: base64
-      responses:
-        '201':
-          description: Planta cadastrada com sucesso
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  plant_id:
-                    type: string
-                  message:
-                    type: string
-
-    get:
-      summary: Listar plantas do usuário
-      parameters:
-        - in: path
-          name: user_id
-          required: true
+            format: date
+        - name: endDate
+          in: query
           schema:
             type: string
-        - in: query
-          name: page
+            format: date
+        - name: week
+          in: query
           schema:
             type: integer
-            default: 1
-        - in: query
-          name: limit
+        - name: limit
+          in: query
           schema:
             type: integer
-            default: 10
+            default: 100
       responses:
-        '200':
-          description: Lista de plantas
+        200:
+          description: Dados dos sensores retornados com sucesso.
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  plants:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: string
-                        name:
-                          type: string
-                        type:
-                          type: string
-                        image:
-                          type: string
-                        date_created:
-                          type: string
-                          format: date-time
-                  pagination:
-                    type: object
-                    properties:
-                      total:
-                        type: integer
-                      page:
-                        type: integer
-                      pages:
-                        type: integer
-                      hasMore:
-                        type: boolean
+                type: array
+                items:
+                  $ref: '#/components/schemas/SensorData'
+        400:
+          description: Parâmetros inválidos.
+        500:
+          description: Erro no servidor.
 
-  /v1/plants/{id}:
+  /v1/sensors/last:
     get:
-      summary: Buscar planta por ID
+      tags:
+        - sensors
+      summary: Obter o último registro de sensores
       parameters:
-        - in: path
-          name: id
+        - name: plantid
+          in: query
+          required: true
+          schema:
+            type: string
+            description: ID da planta.
+      responses:
+        200:
+          description: Último registro retornado com sucesso.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SensorData'
+        400:
+          description: Parâmetros inválidos.
+        500:
+          description: Erro no servidor.
+
+  /v1/sensors/average:
+    get:
+      tags:
+        - sensors
+      summary: Obter média dos dados
+      parameters:
+        - name: plantid
+          in: query
           required: true
           schema:
             type: string
       responses:
-        '200':
-          description: Detalhes da planta
+        200:
+          description: Média calculada com sucesso.
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  id:
-                    type: string
-                  name:
-                    type: string
-                  type:
-                    type: string
-                  image:
-                    type: string
-                  date_created:
-                    type: string
-                    format: date-time
-                  user_id:
-                    type: string
+                  averageTemperature:
+                    type: number
+                  averageHumidity:
+                    type: number
+        500:
+          description: Erro no servidor.
 
-    delete:
-      summary: Deletar uma planta
+  /v1/sensors/mode:
+    get:
+      tags:
+        - sensors
+      summary: Obter moda dos dados
       parameters:
-        - in: path
-          name: id
+        - name: plantid
+          in: query
           required: true
           schema:
             type: string
       responses:
-        '200':
-          description: Planta deletada com sucesso
+        200:
+          description: Moda calculada com sucesso.
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  message:
-                    type: string
+                  modeTemperature:
+                    type: number
+                  modeHumidity:
+                    type: number
+        500:
+          description: Erro no servidor.
 
-  #### Autenticação ####
-  /v1/auth/login:
-    post:
-      summary: Login de usuário
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                password:
-                  type: string
-                  format: password
+  /v1/sensors/median:
+    get:
+      tags:
+        - sensors
+      summary: Obter mediana dos dados
+      parameters:
+        - name: plantid
+          in: query
+          required: true
+          schema:
+            type: string
       responses:
-        '200':
-          description: Login realizado com sucesso
+        200:
+          description: Mediana calculada com sucesso.
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  message:
-                    type: string
-                  user:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                      name:
-                        type: string
-                      email:
-                        type: string
-        '401':
-          description: Credenciais inválidas
+                  medianTemperature:
+                    type: number
+                  medianHumidity:
+                    type: number
+        500:
+          description: Erro no servidor.
+
+  /v1/sensors/stddev:
+    get:
+      tags:
+        - sensors
+      summary: Obter desvio padrão dos dados
+      parameters:
+        - name: plantid
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Desvio padrão calculado com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  stdDevTemperature:
+                    type: number
+                  stdDevHumidity:
+                    type: number
+        500:
+          description: Erro no servidor.
+
+  /v1/sensors/skewness:
+    get:
+      tags:
+        - sensors
+      summary: Obter assimetria dos dados
+      parameters:
+        - name: plantid
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Assimetria calculada com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  skewnessTemperature:
+                    type: number
+                  skewnessHumidity:
+                    type: number
+        500:
+          description: Erro no servidor.
+
+  /v1/sensors/regression:
+    get:
+      tags:
+        - sensors
+      summary: Obter regressão linear dos dados
+      parameters:
+        - name: plantid
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Regressão linear calculada com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  projectedTemperature:
+                    type: number
+                  projectedHumidity:
+                    type: number
+        500:
+          description: Erro no servidor.
+
+components:
+  schemas:
+    UserRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+
+    UserLoginResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+
+    ResetPasswordRequest:
+      type: object
+      properties:
+        email:
+          type: string
+        current_password:
+          type: string
+        new_password:
+          type: string
+
+    PlantRequest:
+      type: object
+      properties:
+        user_id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+
+    PlantResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+
+    SensorData:
+      type: object
+      properties:
+        plant_id:
+          type: string
+        temperature_air:
+          type: number
+        humidity_air:
+          type: number
+        soil_moisture:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        week:
+          type: integer
