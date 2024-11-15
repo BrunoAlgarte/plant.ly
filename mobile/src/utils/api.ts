@@ -7,7 +7,7 @@ const uri = Constants.expoConfig?.hostUri?.split(':')[0] ?? '192.168.88.35';
 console.log('IP do servidor:', uri);
 
 const api = axios.create({
-    baseURL: `http://${uri}:3030`,
+    baseURL: 'https://plant-ly-ti54.onrender.com',
     timeout: 5000,
     headers: {
         'Content-Type': 'application/json',

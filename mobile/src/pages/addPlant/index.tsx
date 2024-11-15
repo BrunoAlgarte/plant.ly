@@ -9,6 +9,7 @@ import styles from './styles';
 import { Picker } from '@react-native-picker/picker'; 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
+import { Ionicons } from '@expo/vector-icons';
 
 type AddPlantScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'AddPlant'>;
 
@@ -23,7 +24,7 @@ const AddPlant = () => {
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
-            aspect: [4, 3],
+            aspect: [1, 1],
             quality: 1,
         });
 
@@ -35,7 +36,7 @@ const AddPlant = () => {
     const handleCamera = async () => {
         const result = await ImagePicker.launchCameraAsync({
             allowsEditing: true,
-            aspect: [4, 3],
+            aspect: [1, 1],
             quality: 1,
         });
 
@@ -110,6 +111,12 @@ const AddPlant = () => {
 
     return (
         <View style={styles.container}>
+            <TouchableOpacity 
+                style={styles.backButton}
+                onPress={() => navigation.goBack()}
+            >
+                <Ionicons name="arrow-back" size={24} />
+            </TouchableOpacity>
             <Text style={styles.title}>Adicionar Planta</Text>
             <TextInput 
                 style={styles.input}

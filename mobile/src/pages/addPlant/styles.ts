@@ -50,6 +50,13 @@ const styles = StyleSheet.create({
         color: themas.colors.white,
         fontSize: 16,
     },
+    backButton: {
+        position: 'absolute',
+        top: 20,
+        left: 20,
+        color: themas.colors.primary,
+        marginTop: 20,
+    },
     image: {
         width: 100,
         height: 100,

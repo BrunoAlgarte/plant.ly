@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3030',
+  baseURL: 'https://plant-ly-ti54.onrender.com',
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json'

@@ -19,6 +19,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import api from '../../utils/api';
 import { Feather } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 type MainScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Main'>;
 
@@ -78,6 +79,12 @@ export function MainScreen() {
     useEffect(() => {
         fetchPlants();
     }, []);
+
+    useFocusEffect(
+        React.useCallback(() => {
+            fetchPlants();
+        }, [])
+    );
 
     const renderPlantItem = ({ item }: { item: Plant }) => (
         <View style={style.plantCard}>
