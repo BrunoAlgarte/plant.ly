@@ -4,13 +4,13 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const config = require('./config/config')
 // Middleware configurations
-app.use(express.json())
+app.use(express.json({ limit: '100mb' }))
 app.use(cors({
   origin: config.cors.origin, // Melhor controle de CORS
     methods: config.cors.methods,
     credentials: config.cors.credentials
 }))
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ limit: '100mb',extended: true }))
 
 // Database connection with error handling
 mongoose.connect(process.env.MONGO_URI)
