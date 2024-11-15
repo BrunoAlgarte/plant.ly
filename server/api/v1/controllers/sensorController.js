@@ -155,36 +155,67 @@ exports.getSkewness = async (req, res) => {
 // Função para calcular a regressão linear (projeção futura)
 exports.getRegression = async (req, res) => {
   try {
+    // Obter os dados filtrados usando a função getSensorData
     const data = await getSensorData(req);
 
+    // Função para calcular a regressão linear com base nos dados fornecidos
     const linearRegression = (values) => {
-      const n = values.length;
-      const x = Array.from({ length: n }, (_, i) => i + 1);
+      const n = values.length; // Quantidade de pontos de dados
+      const x = Array.from({ length: n }, (_, i) => i + 1); // Gerar um array de índices [1, 2, 3, ..., n]
+
+      // Cálculo da soma de X (índices)
       const sumX = x.reduce((acc, value) => acc + value, 0);
+
+      // Cálculo da soma de Y (valores de temperatura ou umidade)
       const sumY = values.reduce((acc, value) => acc + value, 0);
+
+      // Cálculo da soma de XY (produto de X e Y para cada ponto)
       const sumXY = x.reduce((acc, value, index) => acc + value * values[index], 0);
+
+      // Cálculo da soma de X ao quadrado
       const sumX2 = x.reduce((acc, value) => acc + value ** 2, 0);
 
+      // Cálculo do coeficiente de inclinação (slope)
+      // Fórmula: slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX^2)
       const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX ** 2);
+
+      // Cálculo do intercepto (intercept)
+      // Fórmula: intercept = (sumY - slope * sumX) / n
       const intercept = (sumY - slope * sumX) / n;
 
+      // Retorna os valores de slope e intercept para a regressão linear
       return { slope, intercept };
     };
 
+    // Extrair os valores de temperatura e umidade dos dados
     const temperatures = data.map(item => item.temperature_air);
     const humidities = data.map(item => item.humidity_air);
 
+    // Calcular a regressão linear para temperatura e umidade
     const tempRegression = linearRegression(temperatures);
     const humidityRegression = linearRegression(humidities);
 
+    // Cálculo da projeção futura para temperatura
+    // Usando a fórmula da regressão linear: y = slope * x + intercept
+    // Aqui, x é o próximo ponto (length + 1)
+    const x = temperatures.length + 1;
+    const projectedTemperature = tempRegression.slope * x + tempRegression.intercept;
+
+    // Cálculo da projeção futura para umidade
+    // Usando a mesma fórmula: y = slope * x + intercept
+    const projectedHumidity = humidityRegression.slope * x + humidityRegression.intercept;
+
+    // Retornar os valores projetados como resposta da API, formatados com duas casas decimais
     res.json({
-      'Projeção futura temperatura do ar': tempRegression,
-      'Projeção futura umidade do ar': humidityRegression,
+      'Projeção futura de temperatura': projectedTemperature.toFixed(2),
+      'Projeção futura de umidade': projectedHumidity.toFixed(2),
     });
   } catch (error) {
+    // Em caso de erro, retornar uma mensagem de erro
     res.status(500).json({ error: error.message });
   }
 };
+
 
 // Função para retornar os dados dos sensores diretamente
 exports.getSensorData = async (req, res) => {
