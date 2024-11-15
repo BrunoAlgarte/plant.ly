@@ -26,10 +26,9 @@ Plant.ly é uma aplicação completa para gerenciamento de plantas, permitindo q
 ### Backend (Express)
 - Node.js
 - Express
-- TypeScript
 - MongoDB
 - Mongoose
-- JWT
+- Joi
 - Bcrypt
 - CORS
 - dotenv
@@ -41,11 +40,14 @@ Plant.ly é uma aplicação completa para gerenciamento de plantas, permitindo q
 - Reset de senha
 - Dashboard com estatísticas
 - Gerenciamento de plantas
-- Sistema de notificações
 - Perfil do usuário
 
 ### Específicas Mobile
-- Notificações push
+- Autenticação de usuários (Login/Registro)
+- Reset de senha
+- Dashboard com estatísticas
+- Gerenciamento de plantas
+- Sistema de notificações
 - Câmera para fotos das plantas
 
 ## 🏗️ Estrutura do Projeto
