@@ -49,12 +49,12 @@ export default function Dashboard() {
   return (
     <>
       <Header />
-      <AddPlantModal 
-        isOpen={isModalOpen} 
-        onClose={closeModal} 
-        userId={user_id} 
-        onPlantAdded={fetchPlants} 
-        zIndex={9999} 
+      <AddPlantModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        userId={user_id}
+        onPlantAdded={fetchPlants}
+        zIndex={9999}
       />
       <div className="pt-4 mb-2 h-full w-full bg-[rgb(221,220,220)] bg-cover">
         {/* Barra de plantas */}
@@ -67,7 +67,7 @@ export default function Dashboard() {
             ) : (
               <>
                 {plants.map((plant) => (
-                  <div 
+                  <div
                     key={plant.id}
                     className="flex flex-col items-center justify-center bg-white pb-1 rounded-xl border-2 border-spacing-5 border-gray-400 hover:border-[#1e722f] min-h-[199px] max-h-[199px] min-w-[145.5px] max-w-[145.5px] cursor-pointer"
                     onClick={() => setSelectedPlant(plant.name)}
@@ -100,6 +100,11 @@ export default function Dashboard() {
             )}
           </div>
         </div>
+        <iframe
+          src="https://grafana-plant-ly.onrender.com/d/ae3o7x8yzbcowf/planti-ly?from=2024-11-15T03:00:00.000Z&to=2024-11-16T02:59:59.000Z&timezone=browser&theme=light"
+          width="100%"
+          height="600"
+        ></iframe>
         {/* COnteúdo Dash */}
         <div className="px-2 border-t-2 border-t-green-800">
           {/* Header Dash */}
@@ -111,7 +116,9 @@ export default function Dashboard() {
             </div>
             <div className="flex justify-between w-full">
               <div className="flex items-center gap-2 py-2">
-                <h1 className="text-3xl text-[#1e722f]">{selectedPlant || "Selecione uma planta"}</h1>
+                <h1 className="text-3xl text-[#1e722f]">
+                  {selectedPlant || "Selecione uma planta"}
+                </h1>
               </div>
               <div className="flex gap-x-1 items-center">
                 <Clock10Icon size={25} color="#1e722f" />
