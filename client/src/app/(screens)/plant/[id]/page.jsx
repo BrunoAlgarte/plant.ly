@@ -22,7 +22,6 @@ export default function Plant() {
   const [plant, setPlant] = React.useState([]);
   const [types, setTypes] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
-  console.log("plant_id", id);
 
   const getPlant = async () => {
     try {
@@ -74,7 +73,6 @@ export default function Plant() {
       setLoading(false);
     }
   };
-  console.log("types", types);
 
   React.useEffect(() => {
     if (user_id) {

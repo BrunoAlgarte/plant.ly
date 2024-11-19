@@ -79,8 +79,8 @@ export default function Dashboard() {
                       alt={plant.name}
                       className="mx-auto h-full mt-0.5 rounded-t-[10px] min-h-[142px] max-h-[142px] min-w-[142px] max-w-[142px]"
                     />
-                    <div className="flex py-3 items-center">
-                      <h1 className="text-[#1e722f] text-xl">{plant.name}</h1>
+                    <div className="flex py-4 items-center">
+                      <h1 className="text-[#1e722f] text-base">{plant.name}</h1>
                     </div>
                   </div>
                 ))}
@@ -109,7 +109,7 @@ export default function Dashboard() {
                 Dashboard
               </h1>
             </div>
-            <div className="flex justify-between w-full">
+            {/* <div className="flex justify-between w-full">
               <div className="flex items-center gap-2 py-2">
                 <h1 className="text-3xl text-[#1e722f]">
                   {selectedPlant || "Selecione uma planta"}
@@ -122,14 +122,14 @@ export default function Dashboard() {
                   01/01/2024 - 31/12/2024
                 </h1>
               </div>
-            </div>
+            </div> */}
           </div>
-        <iframe 
-          src="https://plant-ly-grafana.onrender.com/public-dashboards/35da2a39554847f9bcfd2b5ec367773b?theme=light"
-          className="mx-auto mt-2 w-full"
-        ></iframe>
+          <iframe
+            src="https://brunoalgter.grafana.net/public-dashboards/c35726a3560941c5af48617424b9ddb1?orgId=1&from=2024-11-18T03:00:00.000Z&to=2024-11-19T23:59:59.000Z"
+            className="mx-auto mt-2 w-full h-[2300px] rounded-2xl border-2 border-[#1e722f] shadow-lg"
+          ></iframe>
           {/* Gráficos 1 */}
-          <div className="flex p-2">
+          {/* <div className="flex p-2">
             <div className="grid grid-cols-3 gap-x-6 w-full">
               <div className="flex bg-white border-2 shadow-lg border-[#1e722f] rounded-2xl p-2          h-[300px] w-full">
                 <h1>Média</h1>
@@ -137,26 +137,26 @@ export default function Dashboard() {
               <div className="flex bg-white border-2 shadow-lg border-[#1e722f] rounded-2xl p-2          h-[300px] w-full"></div>
               <div className="flex bg-white border-2 shadow-lg border-[#1e722f] rounded-2xl p-2          h-[300px] w-full"></div>
             </div>
-          </div>
+          </div> */}
 
           {/* Gráficos 2 */}
-          <div className="flex p-2">
+          {/* <div className="flex p-2">
             <div className="grid grid-cols-2 gap-x-6 w-full">
               <div className="flex bg-white border-2 shadow-lg border-[#1e722f] rounded-2xl p-2          h-[300px] w-full">
                 <h1>Média</h1>
               </div>
               <div className="flex bg-white border-2 shadow-lg border-[#1e722f] rounded-2xl p-2          h-[300px] w-full"></div>
             </div>
-          </div>
+          </div> */}
 
           {/* Gráficos 3 */}
-          <div className="flex p-2">
+          {/* <div className="flex p-2">
             <div className="grid grid-cols-1 w-full">
               <div className="flex bg-white border-2 shadow-lg border-[#1e722f] rounded-2xl p-2          h-[300px] w-full">
                 <h1>Média</h1>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       <Footer />

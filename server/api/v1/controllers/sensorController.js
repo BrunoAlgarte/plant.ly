@@ -29,8 +29,8 @@ exports.getAverage = async (req, res) => {
     const averageHumidity = totalHumidity / data.length;
 
     res.json({
-      'Média temperatura do ar': averageTemperature.toFixed(2),
-      'Média umidade do ar': averageHumidity.toFixed(2),
+      'Media_temperatura_do_ar': averageTemperature.toFixed(2),
+      'Media_umidade_do_ar': averageHumidity.toFixed(2),
     });
   } catch (error) {
     res.status(500).json({ error: error.message });

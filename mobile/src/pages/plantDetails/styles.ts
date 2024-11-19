@@ -52,7 +52,7 @@ export const style = StyleSheet.create({
     },
     infoSection: {
         gap: 12,
-        marginBottom: 46,
+        marginBottom: 25,
     },
     infoItem: {
         backgroundColor: themas.colors.white,
@@ -76,5 +76,28 @@ export const style = StyleSheet.create({
         fontSize: 16,
         color: themas.colors.text,
         paddingLeft: 32,
+    },
+    graphName: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: themas.colors.primary,
+        marginBottom: 2,
+    },
+    graphDescription: {
+        fontSize: 10,
+        color: themas.colors.gray,
+        marginBottom: 16,
+    },
+    averageSection: {
+        backgroundColor: themas.colors.lightGray,
+        borderRadius: 12,
+        padding: 16,
+        marginBottom: 16,
+    },
+    averageTitle: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: themas.colors.primary,
+        marginBottom: 4,
     },
 }); 
