@@ -2,56 +2,15 @@
 
 Plant.ly é uma aplicação completa para gerenciamento de plantas, permitindo que usuários monitorem e cuidem de suas plantas de forma eficiente. O projeto é dividido em três partes principais: frontend web, aplicativo mobile e backend.
 
-## 🚀 Tecnologias Utilizadas
+## 👥 Autores
 
-### Frontend Web (Next.js)
-- Next.js 14
-- TypeScript
-- Tailwind CSS
-- Axios
-- Context API
-- JWT Authentication
-- React Icons
+- Rafael - [GitHub](https://github.com/RafaelVSs)
+- Bruno - [GitHub](https://github.com/Brunoalgarte)
+- Eduardo - [GitHub](https://github.com/eduardovbf)- Modo offline
 
-### Mobile (React Native)
-- React Native
-- Expo
-- TypeScript
-- Styled Components
-- React Navigation
-- Async Storage
-- Axios
-- Context API
-
-### Backend (Express)
-- Node.js
-- Express
-- MongoDB
-- Mongoose
-- Joi
-- Bcrypt
-- CORS
-- dotenv
-
-## 📱 Funcionalidades Principais
-
-### Web & Mobile
-- Autenticação de usuários (Login/Registro)
-- Reset de senha
-- Dashboard com estatísticas
-- Gerenciamento de plantas
-- Perfil do usuário
-
-### Específicas Mobile
-- Autenticação de usuários (Login/Registro)
-- Reset de senha
-- Dashboard com estatísticas
-- Gerenciamento de plantas
-- Sistema de notificações
-- Câmera para fotos das plantas
 
 ## 🏗️ Estrutura do Projeto
-
+```
 plant.ly/
 ├── client/ # Projeto Next.js
 │ ├── public/
@@ -81,9 +40,7 @@ plant.ly/
             ├── routes/ # Rotas da API
             └──  schemas/ # Schemas de validação
 
-
-
-## 🚀 Como Executar
+```
 
 ### Requisitos
 - Node.js 18+
@@ -92,18 +49,24 @@ plant.ly/
 - Yarn ou NPM
 
 
-### Backend
+## Frontend Web (Next.js)
 
-```
-bash
+### 🚀 Tecnologias Utilizadas
 
-cd server
-npm install
-# Configure o .env com as variáveis do MongoDB
-npm run dev
-```
+- Next.js 14
+- TypeScript
+- Tailwind CSS
 
-### Frontend Web
+### 🖥️ Funcionalidades Principais
+
+- Autenticação de usuários (Login/Registro)
+- Reset de senha
+- Dashboard com estatísticas
+- Gerenciamento de plantas
+- Perfil do usuário
+
+### 🚀 Como Executar
+
 abra um terminal na pasta plant.ly e execute o comando:
 
 ```
@@ -114,7 +77,26 @@ npm install
 npm run dev
 ```
 
-### Mobile
+## Mobile (React Native)
+
+### 🚀 Tecnologias Utilizadas
+
+- React Native
+- Expo
+- TypeScript
+
+### 📱 Funcionalidades Principais
+
+- Autenticação de usuários (Login/Registro)
+- Reset de senha
+- Dashboard com estatísticas
+- Gerenciamento de plantas
+- Perfil do usuário
+- Sistema de notificações
+- Câmera para fotos das plantas
+
+### 🚀 Como Executar
+
 abra um terminal na pasta plant.ly e execute o comando:
 
 ```
@@ -127,9 +109,29 @@ npx expo start
 # Escaneie o QR Code com o app Expo Go
 ```
 
-## 🔐 Variáveis de Ambiente
 
-### Backend (.env)
+
+## Backend (Express)
+
+### 🚀 Tecnologias Utilizadas
+
+- Node.js
+- Express
+- MongoDB
+
+
+### 🚀 Como Executar
+
+```
+bash
+
+cd server
+npm install
+# Configure o .env com as variáveis do MongoDB
+npm run dev
+```
+
+### 🔐 Variáveis de Ambiente
 
 env
 MONGODB_URI="mongodb://seu_link_do_mongo"
@@ -140,8 +142,3 @@ PORT=
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
-## 👥 Autores
-
-- Rafael - [GitHub](https://github.com/RafaelVSs)
-- Bruno - [GitHub](https://github.com/Brunoalgarte)
-- Eduardo - [GitHub](https://github.com/eduardovbf)- Modo offline

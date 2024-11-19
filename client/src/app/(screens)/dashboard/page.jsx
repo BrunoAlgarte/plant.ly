@@ -100,11 +100,6 @@ export default function Dashboard() {
             )}
           </div>
         </div>
-        <iframe
-          src="https://grafana-plant-ly.onrender.com/d/ae3o7x8yzbcowf/planti-ly?from=2024-11-15T03:00:00.000Z&to=2024-11-16T02:59:59.000Z&timezone=browser&theme=light"
-          width="100%"
-          height="600"
-        ></iframe>
         {/* COnteúdo Dash */}
         <div className="px-2 border-t-2 border-t-green-800">
           {/* Header Dash */}
@@ -129,6 +124,10 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
+        <iframe 
+          src="https://plant-ly-grafana.onrender.com/public-dashboards/35da2a39554847f9bcfd2b5ec367773b?theme=light"
+          className="mx-auto mt-2 w-full"
+        ></iframe>
           {/* Gráficos 1 */}
           <div className="flex p-2">
             <div className="grid grid-cols-3 gap-x-6 w-full">
