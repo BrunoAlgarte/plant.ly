@@ -1,0 +1,1700 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_PLANT.LY",
+      "label": "plant.ly",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "yesoreyeram-infinity-datasource",
+      "pluginName": "Infinity"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "11.3.0+security-01"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "yesoreyeram-infinity-datasource",
+      "name": "Infinity",
+      "version": "2.11.3"
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_PLANT.LY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 50,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-blue",
+                "value": null
+              },
+              {
+                "color": "semi-dark-blue",
+                "value": 10
+              },
+              {
+                "color": "yellow",
+                "value": 15
+              },
+              {
+                "color": "dark-orange",
+                "value": 27
+              },
+              {
+                "color": "dark-red",
+                "value": 35
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Média umidade do ar"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "max",
+                "value": 100
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "dark-red",
+                      "value": 0
+                    },
+                    {
+                      "color": "dark-yellow",
+                      "value": 25
+                    },
+                    {
+                      "color": "dark-green",
+                      "value": 40
+                    },
+                    {
+                      "color": "dark-blue",
+                      "value": 60
+                    }
+                  ]
+                }
+              },
+              {
+                "id": "color"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 15,
+      "options": {
+        "displayMode": "lcd",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 127,
+        "minVizHeight": 134,
+        "minVizWidth": 43,
+        "namePlacement": "top",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "limit": 50,
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "manual",
+        "text": {
+          "titleSize": 30,
+          "valueSize": 60
+        },
+        "valueMode": "text"
+      },
+      "pluginVersion": "11.3.0+security-01",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "Média temperatura do ar",
+              "text": "Média temperatura do ar",
+              "type": "number"
+            },
+            {
+              "selector": "Média umidade do ar",
+              "text": "Média umidade do ar",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_PLANT.LY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "https://plant-ly-ti54.onrender.com/v1/sensors/average?plantid=67329e3a324754481243b723&startDate=${__from:date}&endDate=${__to:date}",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_PLANT.LY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisBorderShow": true,
+            "axisCenteredZero": true,
+            "axisColorMode": "text",
+            "axisGridShow": true,
+            "axisLabel": "",
+            "axisPlacement": "right",
+            "axisSoftMax": 50,
+            "axisSoftMin": 15,
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 12,
+            "gradientMode": "scheme",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 2,
+            "pointSize": 4,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "always",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "max": 50,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-blue",
+                "value": 10
+              },
+              {
+                "color": "#EAB839",
+                "value": 20
+              },
+              {
+                "color": "dark-orange",
+                "value": 30
+              },
+              {
+                "color": "dark-red",
+                "value": 33
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 3,
+      "interval": "1m",
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0+security-01",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "temperature_air",
+              "text": "Média de temperatura",
+              "type": "number"
+            },
+            {
+              "selector": "timestamp",
+              "text": "Data",
+              "type": "timestamp"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_PLANT.LY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "json_options": {
+            "columnar": false,
+            "root_is_not_array": false
+          },
+          "refId": "A",
+          "root_selector": "$",
+          "source": "url",
+          "type": "json",
+          "url": "https://plant-ly-ti54.onrender.com/v1/sensors?plantid=67329e3a324754481243b723&startDate=${__from:date}&endDate=${__to:date}&interval=${__interval}",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "Historico média temperatura do ar",
+      "transformations": [
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "Data": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Média de temperatura": {
+                "aggregations": [
+                  "mean"
+                ],
+                "operation": "aggregate"
+              }
+            }
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_PLANT.LY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds",
+            "seriesBy": "last"
+          },
+          "custom": {
+            "axisBorderShow": true,
+            "axisCenteredZero": true,
+            "axisColorMode": "text",
+            "axisGridShow": true,
+            "axisLabel": "",
+            "axisPlacement": "right",
+            "axisSoftMax": 100,
+            "axisSoftMin": 0,
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 12,
+            "gradientMode": "scheme",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 2,
+            "pointSize": 6,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 25
+              },
+              {
+                "color": "dark-green",
+                "value": 40
+              },
+              {
+                "color": "semi-dark-blue",
+                "value": 60
+              },
+              {
+                "color": "dark-blue",
+                "value": 100
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 4,
+      "interval": "1s",
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0+security-01",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "humidity_air",
+              "text": "Umidade do ar",
+              "type": "number"
+            },
+            {
+              "selector": "timestamp",
+              "text": "Data",
+              "type": "timestamp"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_PLANT.LY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "$",
+          "source": "url",
+          "type": "json",
+          "url": "https://plant-ly-ti54.onrender.com/v1/sensors?plantid=67329e3a324754481243b723&startDate=${__from:date}&endDate=${__to:date}&interval=${__interval}",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "Historico média umidade do ar",
+      "transformations": [
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "Data": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Umidade do ar": {
+                "aggregations": [
+                  "mean"
+                ],
+                "operation": "aggregate"
+              },
+              "Umidade do solo": {
+                "aggregations": [
+                  "mean"
+                ],
+                "operation": "aggregate"
+              }
+            }
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_PLANT.LY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 4,
+        "x": 0,
+        "y": 19
+      },
+      "id": 5,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 100
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0+security-01",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "Moda temperatura do ar",
+              "text": "Moda temperatura do ar",
+              "type": "number"
+            },
+            {
+              "selector": "Moda umidade do ar",
+              "text": "Moda umidade do ar",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_PLANT.LY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "https://plant-ly-ti54.onrender.com/v1/sensors/mode?plantid=67329e3a324754481243b723&startDate=${__from:date}&endDate=${__to:date}",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_PLANT.LY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 5,
+        "x": 4,
+        "y": 19
+      },
+      "id": 1,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 100
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0+security-01",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "Mediana temperatura do ar",
+              "text": "Mediana temperatura do ar",
+              "type": "number"
+            },
+            {
+              "selector": "Mediana umidade do ar",
+              "text": "Mediana umidade do ar",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_PLANT.LY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "https://plant-ly-ti54.onrender.com/v1/sensors/median?plantid=67329e3a324754481243b723&startDate=${__from:date}&endDate=${__to:date}",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_PLANT.LY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 5,
+        "x": 9,
+        "y": 19
+      },
+      "id": 6,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "titleSize": 25,
+          "valueSize": 100
+        },
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0+security-01",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "temperature_air",
+              "text": "Desvio padrão temperatura do ar",
+              "type": "number"
+            },
+            {
+              "selector": "humidity_air",
+              "text": "Desvio padrão umidade do ar",
+              "type": "number"
+            },
+            {
+              "selector": "timestamp",
+              "text": "Data",
+              "type": "timestamp"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_PLANT.LY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "https://plant-ly-ti54.onrender.com/v1/sensors?plantid=67329e3a324754481243b723&startDate=${__from:date}&endDate=${__to:date}",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "includeTimeField": false,
+            "mode": "reduceFields",
+            "reducers": [
+              "stdDev"
+            ]
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_PLANT.LY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-green",
+            "mode": "fixed"
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 10,
+        "x": 14,
+        "y": 19
+      },
+      "id": 7,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "titleSize": 25,
+          "valueSize": 80
+        },
+        "textMode": "value_and_name",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0+security-01",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "Assimetria temperatura do ar",
+              "text": "Assimetria temperatura do ar",
+              "type": "number"
+            },
+            {
+              "selector": "Assimetria umidade do ar",
+              "text": "Assimetria umidade do ar",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_PLANT.LY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "https://plant-ly-ti54.onrender.com/v1/sensors/skewness?plantid=67329e3a324754481243b723&startDate=${__from:date}&endDate=${__to:date}",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_PLANT.LY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 50,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-blue",
+                "value": null
+              },
+              {
+                "color": "dark-blue",
+                "value": 10
+              },
+              {
+                "color": "yellow",
+                "value": 15
+              },
+              {
+                "color": "dark-orange",
+                "value": 27
+              },
+              {
+                "color": "dark-red",
+                "value": 35
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Projeção futura de umidade"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "max",
+                "value": 100
+              },
+              {
+                "id": "color"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "dark-red",
+                      "value": null
+                    },
+                    {
+                      "color": "dark-red",
+                      "value": 0
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 25
+                    },
+                    {
+                      "color": "dark-green",
+                      "value": 40
+                    },
+                    {
+                      "color": "dark-blue",
+                      "value": 60
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 29
+      },
+      "id": 2,
+      "options": {
+        "displayMode": "lcd",
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "maxVizHeight": 127,
+        "minVizHeight": 134,
+        "minVizWidth": 43,
+        "namePlacement": "top",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "limit": 50,
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "manual",
+        "text": {
+          "titleSize": 30,
+          "valueSize": 60
+        },
+        "valueMode": "text"
+      },
+      "pluginVersion": "11.3.0+security-01",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "Projeção futura de temperatura",
+              "text": "Projeção futura de temperatura",
+              "type": "number"
+            },
+            {
+              "selector": "Projeção futura de umidade",
+              "text": "Projeção futura de umidade",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_PLANT.LY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "https://plant-ly-ti54.onrender.com/v1/sensors/regression?plantid=67329e3a324754481243b723&startDate=${__from:date}&endDate=${__to:date}",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_PLANT.LY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 50,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "semi-dark-blue",
+                "value": null
+              },
+              {
+                "color": "dark-blue",
+                "value": 10
+              },
+              {
+                "color": "#EAB839",
+                "value": 15
+              },
+              {
+                "color": "dark-orange",
+                "value": 27
+              },
+              {
+                "color": "dark-red",
+                "value": 35
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Umidade máxima"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "max",
+                "value": 100
+              },
+              {
+                "id": "color"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "percentage",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "dark-red",
+                      "value": 0
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 25
+                    },
+                    {
+                      "color": "dark-green",
+                      "value": 40
+                    },
+                    {
+                      "color": "dark-blue",
+                      "value": 60
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 37
+      },
+      "id": 8,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 66,
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "manual",
+        "text": {
+          "valueSize": 50
+        }
+      },
+      "pluginVersion": "11.3.0+security-01",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "temperature_air",
+              "text": "Temperatura máxima",
+              "type": "number"
+            },
+            {
+              "selector": "humidity_air",
+              "text": "Umidade máxima",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_PLANT.LY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "https://plant-ly-ti54.onrender.com/v1/sensors?plantid=67329e3a324754481243b723&startDate=${__from:date}&endDate=${__to:date}",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_PLANT.LY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 50,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-blue",
+                "value": null
+              },
+              {
+                "color": "dark-blue",
+                "value": 10
+              },
+              {
+                "color": "#EAB839",
+                "value": 15
+              },
+              {
+                "color": "dark-orange",
+                "value": 27
+              },
+              {
+                "color": "dark-red",
+                "value": 35
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Umidade minima"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percent"
+              },
+              {
+                "id": "min",
+                "value": 0
+              },
+              {
+                "id": "max",
+                "value": 100
+              },
+              {
+                "id": "color"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "percentage",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "dark-red",
+                      "value": 0
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 25
+                    },
+                    {
+                      "color": "dark-green",
+                      "value": 40
+                    },
+                    {
+                      "color": "dark-blue",
+                      "value": 60
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 11,
+        "x": 13,
+        "y": 37
+      },
+      "id": 9,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 66,
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "min"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "manual",
+        "text": {
+          "valueSize": 50
+        }
+      },
+      "pluginVersion": "11.3.0+security-01",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "temperature_air",
+              "text": "Temperatura minima",
+              "type": "number"
+            },
+            {
+              "selector": "humidity_air",
+              "text": "Umidade minima",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_PLANT.LY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "https://plant-ly-ti54.onrender.com/v1/sensors?plantid=67329e3a324754481243b723&startDate=${__from:date}&endDate=${__to:date}",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_PLANT.LY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 0,
+        "y": 47
+      },
+      "id": 10,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 100
+        },
+        "textMode": "value_and_name",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0+security-01",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "temperature_air",
+              "text": "Último registro temperatura do ar",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_PLANT.LY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "https://plant-ly-ti54.onrender.com/v1/sensors/last?plantid=67329e3a324754481243b723&startDate=${__from:date}&endDate=${__to:date}",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "Panel Title",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_PLANT.LY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 9,
+        "x": 8,
+        "y": 47
+      },
+      "id": 16,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 100
+        },
+        "textMode": "value_and_name",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0+security-01",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "humidity_air",
+              "text": "Último registro umidade do ar",
+              "type": "number"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_PLANT.LY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "https://plant-ly-ti54.onrender.com/v1/sensors/last?plantid=67329e3a324754481243b723&startDate=${__from:date}&endDate=${__to:date}",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "Panel Title",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "${DS_PLANT.LY}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "string"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 7,
+        "x": 17,
+        "y": 47
+      },
+      "id": 17,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^Último registro umidade do solo$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {
+          "valueSize": 100
+        },
+        "textMode": "value_and_name",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0+security-01",
+      "targets": [
+        {
+          "columns": [
+            {
+              "selector": "soil_moisture",
+              "text": "Último registro umidade do solo",
+              "type": "string"
+            }
+          ],
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "${DS_PLANT.LY}"
+          },
+          "filters": [],
+          "format": "table",
+          "global_query_id": "",
+          "refId": "A",
+          "root_selector": "",
+          "source": "url",
+          "type": "json",
+          "url": "https://plant-ly-ti54.onrender.com/v1/sensors/last?plantid=67329e3a324754481243b723&startDate=${__from:date}&endDate=${__to:date}",
+          "url_options": {
+            "data": "",
+            "method": "GET"
+          }
+        }
+      ],
+      "title": "Panel Title",
+      "transparent": true,
+      "type": "stat"
+    }
+  ],
+  "refresh": "",
+  "schemaVersion": 40,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "2024-11-18T03:00:00.000Z",
+    "to": "2024-11-20T02:59:59.000Z"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "plant.ly",
+  "uid": "ae3o7x8yzbcowf",
+  "version": 3,
+  "weekStart": ""
+}

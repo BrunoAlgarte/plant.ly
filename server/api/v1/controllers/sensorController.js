@@ -64,7 +64,7 @@ exports.getMode = async (req, res) => {
     const modeTemperature = mode(temperatures);
     const modeHumidity = mode(humidities);
 
-    res.json({
+    res.status(200).json({
       'Moda temperatura do ar': modeTemperature,
       'Moda umidade do ar': modeHumidity,
     });
@@ -90,7 +90,7 @@ exports.getMedian = async (req, res) => {
     const medianTemperature = median(temperatures);
     const medianHumidity = median(humidities);
 
-    res.json({
+    res.status(200).json({
       'Mediana temperatura do ar': medianTemperature,
       'Mediana umidade do ar': medianHumidity,
     });
@@ -116,7 +116,7 @@ exports.getStandardDeviation = async (req, res) => {
     const stdDevTemperature = standardDeviation(temperatures);
     const stdDevHumidity = standardDeviation(humidities);
 
-    res.json({
+    res.status(200).json({
       'Desvio padrão temperatura do ar': stdDevTemperature.toFixed(2),
       'Desvio padrão umidade do ar': stdDevHumidity.toFixed(2),
     });
@@ -143,7 +143,7 @@ exports.getSkewness = async (req, res) => {
     const skewnessTemperature = skewness(temperatures);
     const skewnessHumidity = skewness(humidities);
 
-    res.json({
+    res.status(200).json({
       'Assimetria temperatura do ar': skewnessTemperature.toFixed(2),
       'Assimetria umidade do ar': skewnessHumidity.toFixed(2),
     });
@@ -206,7 +206,7 @@ exports.getRegression = async (req, res) => {
     const projectedHumidity = humidityRegression.slope * x + humidityRegression.intercept;
 
     // Retornar os valores projetados como resposta da API, formatados com duas casas decimais
-    res.json({
+    res.status(200).json({
       'Projeção futura de temperatura': projectedTemperature.toFixed(2),
       'Projeção futura de umidade': projectedHumidity.toFixed(2),
     });
@@ -221,7 +221,7 @@ exports.getRegression = async (req, res) => {
 exports.getSensorData = async (req, res) => {
   try {
     const data = await getSensorData(req);
-    res.json(data);
+    res.status(200).json(data);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -237,7 +237,7 @@ exports.getLastSensorData = async (req, res) => {
     }
 
     const lastData = await SensorData.findOne({ plant_id: plantid }).sort({ timestamp: -1 });
-    res.json(lastData);
+    res.status(200).json(lastData);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
