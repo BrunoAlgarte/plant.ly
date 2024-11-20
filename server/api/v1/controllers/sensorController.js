@@ -29,8 +29,8 @@ exports.getAverage = async (req, res) => {
     const averageHumidity = totalHumidity / data.length;
 
     res.json({
-      'Media_temperatura_do_ar': averageTemperature.toFixed(2),
-      'Media_umidade_do_ar': averageHumidity.toFixed(2),
+      'media_temperatura_do_ar': averageTemperature.toFixed(2),
+      'media_umidade_do_ar': averageHumidity.toFixed(2),
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -65,8 +65,8 @@ exports.getMode = async (req, res) => {
     const modeHumidity = mode(humidities);
 
     res.status(200).json({
-      'Moda temperatura do ar': modeTemperature,
-      'Moda umidade do ar': modeHumidity,
+      'moda_temperatura_do_ar': modeTemperature,
+      'moda_umidade_do_ar': modeHumidity,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -91,8 +91,8 @@ exports.getMedian = async (req, res) => {
     const medianHumidity = median(humidities);
 
     res.status(200).json({
-      'Mediana temperatura do ar': medianTemperature,
-      'Mediana umidade do ar': medianHumidity,
+      'mediana_temperatura_do_ar': medianTemperature,
+      'mediana_umidade_do_ar': medianHumidity,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -117,8 +117,8 @@ exports.getStandardDeviation = async (req, res) => {
     const stdDevHumidity = standardDeviation(humidities);
 
     res.status(200).json({
-      'Desvio padrão temperatura do ar': stdDevTemperature.toFixed(2),
-      'Desvio padrão umidade do ar': stdDevHumidity.toFixed(2),
+      'desvio_padrão_temperatura_do_ar': stdDevTemperature.toFixed(2),
+      'desvio_padrão_umidade_do_ar': stdDevHumidity.toFixed(2),
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -144,8 +144,8 @@ exports.getSkewness = async (req, res) => {
     const skewnessHumidity = skewness(humidities);
 
     res.status(200).json({
-      'Assimetria temperatura do ar': skewnessTemperature.toFixed(2),
-      'Assimetria umidade do ar': skewnessHumidity.toFixed(2),
+      'assimetria_temperatura_do_ar': skewnessTemperature.toFixed(2),
+      'assimetria_umidade_do_ar': skewnessHumidity.toFixed(2),
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -207,8 +207,8 @@ exports.getRegression = async (req, res) => {
 
     // Retornar os valores projetados como resposta da API, formatados com duas casas decimais
     res.status(200).json({
-      'Projeção futura de temperatura': projectedTemperature.toFixed(2),
-      'Projeção futura de umidade': projectedHumidity.toFixed(2),
+      'projecao_futura_de_temperatura': projectedTemperature.toFixed(2),
+      'projecao_futura_de_umidade': projectedHumidity.toFixed(2),
     });
   } catch (error) {
     // Em caso de erro, retornar uma mensagem de erro
