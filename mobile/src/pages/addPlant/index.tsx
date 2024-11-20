@@ -3,6 +3,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  StatusBar,
   Image,
   Alert,
   ActivityIndicator,
@@ -13,7 +14,8 @@ import { RootStackParamList } from "../../types/navigation";
 import { useNavigation } from "@react-navigation/native";
 import { Picker } from "@react-native-picker/picker";
 import * as ImagePicker from "expo-image-picker";
-import { Ionicons } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
+import { themas } from "../../global/themes";
 import React, { useState } from "react";
 import api from "../../utils/api";
 import styles from "./styles";
@@ -122,12 +124,15 @@ const AddPlant = () => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-        style={styles.backButton}
-        onPress={() => navigation.goBack()}
-      >
-        <Ionicons name="arrow-back" size={24} />
-      </TouchableOpacity>
+      <StatusBar
+        backgroundColor={themas.colors.white}
+        barStyle="dark-content"
+      />
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Feather name="arrow-left" size={24} color={themas.colors.primary} />
+        </TouchableOpacity>
+      </View>
       <Text style={styles.title}>Adicionar Planta</Text>
       <TextInput
         style={styles.input}

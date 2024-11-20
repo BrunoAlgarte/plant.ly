@@ -9,6 +9,14 @@ const styles = StyleSheet.create({
         backgroundColor: themas.colors.white,
         padding: 20,
     },
+    header: {
+        padding: 16,
+        flexDirection: 'row',
+        alignItems: 'center',
+        position: 'absolute',
+        top: 0,
+        marginTop: 15
+    },
     title: {
         fontSize: 24,
         fontWeight: 'bold',

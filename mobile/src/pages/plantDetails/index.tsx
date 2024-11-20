@@ -83,7 +83,7 @@ export function PlantDetails() {
       setLoading(false);
     }
   };
-  console.log("sensorData", sensorData);
+
 
   const getMedia = async () => {
     try {
@@ -97,7 +97,7 @@ export function PlantDetails() {
       setLoading(false);
     }
   };
-  console.log("media", media);
+
 
   useEffect(() => {
     fetchPlantDetails();
@@ -121,8 +121,6 @@ export function PlantDetails() {
     .slice(-20)
     .map((data) => data.temperature_air)
     .sort((a, b) => b - a);
-  console.log("sortedHumidityData", sortedHumidityData);
-  console.log("sortedTemperatureData", sortedTemperatureData);
 
   return (
     <SafeAreaView style={style.container}>
@@ -214,7 +212,6 @@ export function PlantDetails() {
               numberOfTicks={8}
               formatLabel={(value) => `${value}ºC`}
             />
-            <Grid />
             {/* <XAxis
               style={{ marginBottom: 10 }}
               data={sensorData.slice(-20).reverse()}
