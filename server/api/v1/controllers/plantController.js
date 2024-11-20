@@ -46,19 +46,18 @@ controller.newPlant = async (req, res) => {
 controller.findAllPlants = async (req, res) => {
     const { user_id } = req.params;
 
-    // Validação do ID do usuário
     if (!mongoose.isValidObjectId(user_id)) {
         return res.status(400).json({ message: "ID do usuário inválido" });
     }
 
     try {
-        // Verificar primeiro se o usuário existe
+
         const userExists = await User.exists({ _id: user_id });
         if (!userExists) {
             return res.status(404).json({ message: "Usuário não encontrado" });
         }
 
-        // Buscar plantas com paginação
+
         const page = parseInt(req.query.page) || 1;
         const limit = parseInt(req.query.limit) || 10;
         const skip = (page - 1) * limit;
@@ -125,13 +124,11 @@ controller.deletePlant = async (req, res) => {
             return res.status(404).json({ message: "Planta não encontrada" });
         }
 
-        // Remover a planta da lista de plantas do usuário
         const userUpdateResult = await User.updateOne(
             { _id: plant.user_id },
             { $pull: { plants: plant._id } }
         );
 
-        // Verificar se a atualização do usuário foi bem-sucedida
         if (userUpdateResult.nModified === 0) {
             return res.status(404).json({ message: "Usuário não encontrado ou planta não estava associada ao usuário" });
         }

@@ -6,7 +6,7 @@ const config = require('./config/config')
 
 app.use(express.json({ limit: '100mb' }))
 app.use(cors({
-  origin: config.cors.origin, 
+    origin: config.cors.origin, 
     methods: config.cors.methods,
     credentials: config.cors.credentials
 }))
@@ -23,9 +23,7 @@ const routes = {
     plants: require('./routes/plant.routes'),
     auth: require('./routes/auth.routes'),
     species: require('./routes/species.routes'),
-    sensors: require('./routes/sensor.routes'),
-    notifications: require('./routes/notification.routes'),
-    grafana: require('./routes/grafana.routes')
+    sensors: require('./routes/sensor.routes')
 }
 Object.entries(routes).forEach(([name, router]) => {
     app.use(`/v1/${name}`, router)

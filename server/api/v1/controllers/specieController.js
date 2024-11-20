@@ -3,13 +3,11 @@ const mongoose = require('mongoose');
 
 const controller = {}
 
-
-// Buscar dados de uma espécie por nome
 controller.findByName = async (req, res) => {
-    const name = req.params.name; // Obtendo o nome da espécie a partir dos parâmetros da requisição
+    const name = req.params.name;
 
     try {
-        const species = await Species.findOne({ name }); // Buscando a espécie pelo nome
+        const species = await Species.findOne({ name });
         if (!species) {
             return res.status(404).json({ message: 'Espécie não encontrada' });
         }

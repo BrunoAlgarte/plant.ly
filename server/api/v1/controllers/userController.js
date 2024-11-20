@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 
 const controller = {};
 
-// Criação de novo usuário
 controller.newUser = async (req, res) => {
     const { name, last_name, email, password, plants } = req.body;
 
@@ -15,7 +14,6 @@ controller.newUser = async (req, res) => {
     }
 
     try {
-        // Verificar se o email já está em uso
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             return res.status(409).json({
@@ -23,10 +21,8 @@ controller.newUser = async (req, res) => {
             });
         }
 
-        // Hash da senha
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Criação do usuário
         const newUser = new User({
             name,
             last_name,
@@ -35,7 +31,6 @@ controller.newUser = async (req, res) => {
             plants: plants || []
         });
 
-        // Salvando no banco de dados
         const savedUser = await newUser.save();
 
         res.status(201).json({
@@ -54,7 +49,6 @@ controller.newUser = async (req, res) => {
     }
 };
 
-// Rota para buscar um usuário por ID (GET)
 controller.findByIdUser = async (req, res) => {
     const { id } = req.params;
     if (!mongoose.isValidObjectId(id)) {
@@ -63,8 +57,6 @@ controller.findByIdUser = async (req, res) => {
 
     try {
         const user = await User.findById(id);
-    
-        // Se o usuário não for encontrado, retorna 404
         if (!user) {
             return res.status(404).json({ message: 'Usuário não encontrado' });
         }

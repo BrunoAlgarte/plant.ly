@@ -12,6 +12,9 @@ Plant.ly é uma aplicação completa para gerenciamento de plantas, permitindo q
 ## 🏗️ Estrutura do Projeto
 ```
 plant.ly/
+├── IoT/ # Projeto IoT
+│ ├── arduino/ # Código Arduino
+│ └── python/ # Código Python
 ├── client/ # Projeto Next.js
 │ ├── public/
 │ └── src/
