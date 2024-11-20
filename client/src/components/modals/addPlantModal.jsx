@@ -12,8 +12,8 @@ import Modal from "./index";
 const AddPlantModal = ({ isOpen, onClose, userId }) => {
   const [selectedImage, setSelectedImage] = useState("/img/Default_image.jpg");
   const [imageBase64, setImageBase64] = useState("");
-  const hiddenFileInput = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
+  const hiddenFileInput = useRef(null);
   const [formData, setFormData] = useState({
     name: "",
     type: "",
@@ -189,7 +189,7 @@ const AddPlantModal = ({ isOpen, onClose, userId }) => {
                     <div className="flex justify-center">
                       <Image
                         onClick={handleClick}
-                        src={selectedImage} // Exibe a imagem selecionada ou a imagem padrão
+                        src={selectedImage}
                         alt="Imagem da Planta"
                         width={180}
                         height={180}

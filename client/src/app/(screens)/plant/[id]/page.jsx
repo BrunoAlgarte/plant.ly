@@ -19,9 +19,9 @@ export default function Plant() {
   const { id } = useParams();
 
   const [specie_name, setSpecieName] = React.useState("");
+  const [loading, setLoading] = React.useState(true);
   const [plant, setPlant] = React.useState([]);
   const [types, setTypes] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
 
   const getPlant = async () => {
     try {

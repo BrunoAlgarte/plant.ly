@@ -23,10 +23,6 @@ function Header() {
     setIsLoading(false);
   }, [user_id, user_name, router]);
 
-  // if (isLoading) {
-  //   return null;
-  // }
-
   return (
     <div className="z-5 flex justify-between w-full h-20 fixed bg-[#1e722f] px-2 drop-shadow-3xl mb-2">
       <div
@@ -42,9 +38,6 @@ function Header() {
           alt="logo robotic"
           className="mr-6 md:mr-0 "
         />
-        {/* <h2 className="hidden md:block font-bold text-sm lg:text-4xl text-white">
-          Plant.ly
-        </h2> */}
       </div>
       <div className="pr-0 py-2 flex gap-x-2 items-center w-fit justify-end">
         <div className="flex gap-x-2 items-center">

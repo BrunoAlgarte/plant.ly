@@ -61,6 +61,7 @@ export default function Home() {
       }
     } catch (error) {
       if (error)
+        console.log(error);
         toast.error(`${error?.response?.data?.message}`, {
           position: "top-center",
           autoClose: 1000,

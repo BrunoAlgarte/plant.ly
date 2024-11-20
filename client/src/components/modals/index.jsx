@@ -33,7 +33,7 @@ const Modal = ({
     setTimeout(() => {
       onClose();
     }, 300);
-  }, [onClose, resetInputs]); // Adicionar resetInputs nas dependências
+  }, [onClose, resetInputs]);
 
   return (
     isOpen && (

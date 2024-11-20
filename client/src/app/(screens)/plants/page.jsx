@@ -20,6 +20,7 @@ export default function Plants() {
   const router = useRouter();
 
   const openModal = () => setIsModalOpen(true);
+
   const closeModal = () => {
     setIsModalOpen(false);
     fetchPlants();
@@ -34,7 +35,6 @@ export default function Plants() {
       const { data } = await api.get(`/v1/plants/user/${user_id}`, { timeout: 10000 });
       setPlants(data.plants);
     } catch (error) {
-      console.log("Erro ao buscar plantas:", error);
       toast.error("Erro ao buscar plantas. Tente novamente.", {
         position: "top-center",
         autoClose: 1500,
