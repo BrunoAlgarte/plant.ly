@@ -127,7 +127,11 @@ export default function Home() {
             <div className="flex items-center justify-center mt-4 cursor-default">
               <p className="text-sm flex flex-col text-[#1e722f]">
                 <button
-                  onClick={() => setIsEditPasswordModalOpen(true)}
+                  onClick={() => {
+                    setIsEditPasswordModalOpen(true);
+                    setEmail("");
+                    setPassword("");
+                  }}
                   className="text-[#1e722f] hover:underline"
                 >
                   Alterar senha
@@ -135,10 +139,14 @@ export default function Home() {
               </p>
             </div>
             <div className="flex items-center justify-center mt-1 cursor-default">
-              <p className="text-xs flex flex-col text-[#1e722f]">
+              <p className="text-xs flex flex-col">
                 Não tem uma conta?{" "}
                 <button
-                  onClick={() => setIsUserModalOpen(true)}
+                  onClick={() => {
+                    setIsUserModalOpen(true);
+                    setEmail("");
+                    setPassword("");
+                  }}
                   className="text-[#1e722f] text-sm hover:underline"
                 >
                   Cadastre-se
