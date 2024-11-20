@@ -15,7 +15,7 @@ export default function ClientLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <title>Plantinha</title>
+        <title>Plant.ly</title>
         <meta name="description" content="Cuide de sua plantinha" />
       </head>
       <body suppressHydrationWarning={true} className={poppins.className}>

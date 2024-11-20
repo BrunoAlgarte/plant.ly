@@ -80,7 +80,13 @@ export default function Home() {
 
   return (
     <>
-      <main className="flex min-h-screen flex-col items-center justify-center p-8 bg-[url('/img/bg-phot.jpg')] bg-cover bg-center">
+      <main
+        className={`flex min-h-screen flex-col items-center justify-center p-8 bg-cover bg-center`}
+        style={{
+          backgroundImage: `url('/img/bg-phot.jpg')`,
+          backgroundColor: '#06953a',
+        }}
+      >
         <form
           className="w-10/12 md:w-3/5 lg:w-1/3 min-h-full py-10 md:py-4 md:pl-2 pl-0 lg:pl-0 lg:py-10 items-center justify-center text-sm flex flex-col lg:flex-col md:flex-row rounded-3xl bg-[#edededea] shadow-xl border-3 border-green-800"
           onSubmit={handleLogin}
