@@ -49,7 +49,7 @@ export function PlantDetails() {
   const [plant, setPlant] = useState<Plant | null>(null);
   const [species, setSpecies] = useState<Species | null>(null);
   const [sensorData, setSensorData] = useState<any[]>([]);
-  const [media, setMedia] = useState<{ Media_temperatura_do_ar: string; Media_umidade_do_ar: string } | null>(null);
+  const [media, setMedia] = useState<{ media_temperatura_do_ar: string; media_umidade_do_ar: string } | null>(null);
   const [loading, setLoading] = useState(true);
   const route = useRoute();
   const navigation = useNavigation();
@@ -184,8 +184,8 @@ export function PlantDetails() {
         </View>
 
         <View style={style.averageSection}>
-          <Text style={style.averageTitle}>Média temperatura do ar: {media ? media.Media_temperatura_do_ar : 'N/A'}</Text>
-          <Text style={style.averageTitle}>Média umidade do ar: {media ? media.Media_umidade_do_ar : 'N/A'}</Text>
+          <Text style={style.averageTitle}>Média temperatura do ar: {media ? media.media_temperatura_do_ar : 'N/A'}</Text>
+          <Text style={style.averageTitle}>Média umidade do ar: {media ? media.media_umidade_do_ar : 'N/A'}</Text>
         </View>
 
         <View style={{ height: 500, marginBottom: 50, paddingHorizontal: 4 }}>

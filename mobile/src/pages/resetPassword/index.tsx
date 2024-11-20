@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { 
     Text,
     View,
@@ -8,14 +7,15 @@ import {
     ActivityIndicator,
     Alert 
 } from "react-native";
-import Logo from "../../assets/logo.png";
-import { style } from "./styles";
-import { MaterialIcons } from "@expo/vector-icons";
-import { themas } from "../../global/themes";
-import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../types/navigation';
+import { useNavigation } from '@react-navigation/native';
+import { MaterialIcons } from "@expo/vector-icons";
+import { themas } from "../../global/themes";
+import Logo from "../../assets/logo.png";
+import React, { useState } from "react";
 import api from "../../utils/api";
+import { style } from "./styles";
 import axios from "axios";
 
 type ResetPasswordScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'ResetPassword'>;

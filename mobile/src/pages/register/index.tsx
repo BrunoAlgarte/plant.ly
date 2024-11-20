@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { 
     Text,
     View,
@@ -8,14 +7,15 @@ import {
     ActivityIndicator,
     Alert 
 } from "react-native";
-import Logo from "../../assets/logo.png";
-import { style } from "./styles";
-import { MaterialIcons } from "@expo/vector-icons";
-import { themas } from "../../global/themes";
-import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../types/navigation';
+import { useNavigation } from '@react-navigation/native';
+import { MaterialIcons } from "@expo/vector-icons";
+import { themas } from "../../global/themes";
+import Logo from "../../assets/logo.png";
+import React, { useState } from "react";
 import api from "../../utils/api";
+import { style } from "./styles";
 import axios from "axios";
 
 type RegisterScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Register'>;
@@ -58,10 +58,7 @@ export default function Register(){
                 plants: []
             };
             
-            console.log('Payload sendo enviado:', payload);
-            
             const response = await api.post<RegisterResponse>("/v1/users", payload);
-            console.log('Resposta do servidor:', response.data);
 
             if (response.status === 201) {
                 Alert.alert("Sucesso", "Cadastro realizado com sucesso!", [
@@ -72,7 +69,6 @@ export default function Register(){
                 ]);
             }
         } catch (error) {
-            console.log('Erro completo:', error);
             if (axios.isAxiosError(error)) {
                 console.log('Detalhes do erro:', {
                     status: error.response?.status,

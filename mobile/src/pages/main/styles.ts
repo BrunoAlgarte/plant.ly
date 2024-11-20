@@ -108,7 +108,7 @@ export const style = StyleSheet.create({
         borderRadius: 40,
         borderWidth: 2,
         borderColor: themas.colors.primary,
-        resizeMode: 'contain',
+        resizeMode: 'cover',
     },
     plantDetails: {
         flex: 1,

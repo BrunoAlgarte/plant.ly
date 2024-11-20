@@ -33,7 +33,7 @@ export const style = StyleSheet.create({
         borderWidth: 4,
         borderColor: themas.colors.primary,
         marginBottom: 16,
-        resizeMode: 'contain',
+        resizeMode: 'cover',
     },
     plantName: {
         fontSize: 24,
@@ -89,15 +89,16 @@ export const style = StyleSheet.create({
         marginBottom: 16,
     },
     averageSection: {
-        backgroundColor: themas.colors.lightGray,
+        backgroundColor: themas.colors.primary,
         borderRadius: 12,
         padding: 16,
         marginBottom: 16,
+        borderColor: themas.colors.primary,
     },
     averageTitle: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: themas.colors.primary,
+        color: themas.colors.white,
         marginBottom: 4,
     },
 }); 

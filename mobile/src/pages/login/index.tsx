@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { 
     Text,
     View,
@@ -8,16 +7,17 @@ import {
     ActivityIndicator,
     Alert 
 } from "react-native";
-import Logo from "../../assets/logo.png";
-import { style } from "./styles";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { RootStackParamList } from '../../types/navigation';
+import { useNavigation } from '@react-navigation/native';
 import { MaterialIcons } from "@expo/vector-icons";
 import { themas } from "../../global/themes";
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../types/navigation';
+import Logo from "../../assets/logo.png";
+import React, { useState } from "react";
 import api from "../../utils/api";
+import { style } from "./styles";
 import axios from "axios";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
 
@@ -46,25 +46,17 @@ export default function Login(){
 
     const handleLogin = async () => {
         setLoading(true);
-        console.log('Iniciando processo de login...');
-        console.log('Dados enviados:', { email, password });
 
         try {
-            console.log('Fazendo requisição para API...');
             const response = await api.post<LoginResponse>("/v1/auth/login", {
                 email,
                 password,
             });
 
-            console.log('Resposta da API:', response.data);
             const { user } = response.data;
             
-            console.log('Salvando dados no AsyncStorage...');
-            console.log('UserID:', user.id);
-
             try {
                 await AsyncStorage.setItem('@PlantApp:userId', user.id);
-                console.log('Dados salvos com sucesso no AsyncStorage');
             } catch (storageError) {
                 console.error('Erro ao salvar no AsyncStorage:', storageError);
             }
