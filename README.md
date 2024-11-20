@@ -13,7 +13,7 @@ Plant.ly é uma aplicação completa para gerenciamento de plantas, permitindo q
 ```
 plant.ly/
 ├── IoT/ # Projeto IoT
-│ ├── dashbaord_grafana/ # Export do dashboard
+│ ├── dashbaord_grafana/ # Import do dashboard
 │ └── script_sensordatas/ # Código Python
 ├── client/ # Projeto Next.js
 │ ├── public/
@@ -54,13 +54,15 @@ plant.ly/
 
 ## 🖥️ Frontend Web (Next.js)
 
+
+
 ### 🚀 Tecnologias Utilizadas
 
 - Next.js 14
 - TypeScript
 - Tailwind CSS
 
-### 🖥️ Funcionalidades Principais
+### 🕹️ Funcionalidades Principais
 
 - Autenticação de usuários (Login/Registro)
 - Reset de senha
@@ -68,7 +70,7 @@ plant.ly/
 - Gerenciamento de plantas
 - Perfil do usuário
 
-### 🚀 Como Executar
+### 🛠️  Como Executar
 
 abra um terminal na pasta plant.ly e execute o comando:
 
@@ -82,6 +84,23 @@ npm run dev
 
 ### 📸 Telas frontend
 
+- Tela de login / Cadastro de usuário
+
+  <img src="client/public/img/front_login.jpeg" width="500"/>  <img src="client/public/img/front_tela_de_cadasto.png" width="500"/>
+
+
+- Tela de entrada / Tela de Dados
+
+
+  <img src="client/public/img/front_home_page.png" width="500"/>  <img src="client/public/img/front_dados_da_planta.png" width="500"/>
+
+
+- Tela minhas plantas  / Cadastro de planta
+
+  <img src="client/public/img/front_minhas_plantas.png" width="500"/>  <img src="client/public/img/front_adição_de_plantas.png" width="500"/>
+
+
+
 # 🔙 Backend (Express)
 
 ### 🚀 Tecnologias Utilizadas
@@ -92,7 +111,7 @@ npm run dev
 - OnpenApi
 
 
-### 🚀 Como Executar
+### 🛠️ Como Executar
 
 ```
 bash
@@ -117,17 +136,16 @@ PORT=
 - Expo
 - TypeScript
 
-### 📱 Funcionalidades Principais
+### 🕹️ Funcionalidades Principais
 
 - Autenticação de usuários (Login/Registro)
 - Reset de senha
 - Dashboard com estatísticas
 - Gerenciamento de plantas
 - Perfil do usuário
-- Sistema de notificações
 - Câmera para fotos das plantas
 
-### 🚀 Como Executar
+### 🛠️  Como Executar
 
 abra um terminal na pasta plant.ly e execute o comando:
 
@@ -141,6 +159,24 @@ npx expo start
 # Escaneie o QR Code com o app Expo Go
 ```
 ### 📸 Telas mobile
+
+- Tela de login / Cadastro de usuário
+
+  <img src="mobile/assets/mobile_login.jpeg" width="200"/>  <img src="mobile/assets/mobile_cadastro_de_usuario.jpeg" width="200"/>
+
+- Tela alteração de senha / Cadastro de plantas
+
+  <img src="mobile/assets/mobile_alteracao_senha.jpeg" width="200"/>  <img src="mobile/assets/mobile_tela_cadastro_planta.jpeg" width="200"/>
+
+- Tela minhas plantas / Dados da planta
+
+  <img src="mobile/assets/mobile_minhas_plantas.jpeg" width="200"/>  <img src="mobile/assets/mobile_dados da planta.jpeg" width="200"/>
+
+- Gráficos
+
+  <img src="mobile/assets/mobile_gráficos.jpeg" width="200"/>  <img src="mobile/assets/mobile_gráficos_2.jpeg" width="200"/>
+
+ 
 
 # 🌐 Iot e estátisticas
 
@@ -195,9 +231,9 @@ Conecte o pino GND ao GND do Raspberry Pi.
 
 ```
 
-## 📚 Leitura dos dados
+### 📚 Leitura dos dados
 
-## 📊 Dashboard estatístico
+### 📊 Dashboard estatístico
 
 ```
 - Crie uma conta no Grafana Cloud.
@@ -208,7 +244,8 @@ Conecte o pino GND ao GND do Raspberry Pi.
 ```
   
 ### 📈 Métricas: 
-Média,moda,mediana,desvio padrão, assimetria,projeção futura,máxima,mínima e último registro.
+Média,moda,mediana,desvio padrão, assimetria,projeção futura,máxima,mínima e último registro.  
+(cálculos realizados no backend da aplicação)
 
 ### 📸 Gráficos:
 
