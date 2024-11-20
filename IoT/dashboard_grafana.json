@@ -27,7 +27,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "11.3.0+security-01"
+      "version": "11.4.0-78678"
     },
     {
       "type": "panel",
@@ -45,7 +45,7 @@
       "type": "datasource",
       "id": "yesoreyeram-infinity-datasource",
       "name": "Infinity",
-      "version": "2.11.3"
+      "version": "2.11.2"
     }
   ],
   "annotations": {
@@ -200,17 +200,17 @@
         },
         "valueMode": "text"
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "columns": [
             {
-              "selector": "Média temperatura do ar",
+              "selector": "media_temperatura_do_ar",
               "text": "Média temperatura do ar",
               "type": "number"
             },
             {
-              "selector": "Média umidade do ar",
+              "selector": "media_umidade_do_ar",
               "text": "Média umidade do ar",
               "type": "number"
             }
@@ -337,7 +337,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "columns": [
@@ -503,7 +503,7 @@
           "sort": "none"
         }
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "columns": [
@@ -619,17 +619,17 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "columns": [
             {
-              "selector": "Moda temperatura do ar",
+              "selector": "moda_temperatura_do_ar",
               "text": "Moda temperatura do ar",
               "type": "number"
             },
             {
-              "selector": "Moda umidade do ar",
+              "selector": "moda_umidade_do_ar",
               "text": "Moda umidade do ar",
               "type": "number"
             }
@@ -705,17 +705,17 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "columns": [
             {
-              "selector": "Mediana temperatura do ar",
+              "selector": "mediana_temperatura_do_ar",
               "text": "Mediana temperatura do ar",
               "type": "number"
             },
             {
-              "selector": "Mediana umidade do ar",
+              "selector": "mediana_umidade_do_ar",
               "text": "Mediana umidade do ar",
               "type": "number"
             }
@@ -796,7 +796,7 @@
         "textMode": "auto",
         "wideLayout": true
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "columns": [
@@ -907,17 +907,17 @@
         "textMode": "value_and_name",
         "wideLayout": true
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "columns": [
             {
-              "selector": "Assimetria temperatura do ar",
+              "selector": "assimetria_temperatura_do_ar",
               "text": "Assimetria temperatura do ar",
               "type": "number"
             },
             {
-              "selector": "Assimetria umidade do ar",
+              "selector": "assimetria_umidade_do_ar",
               "text": "Assimetria umidade do ar",
               "type": "number"
             }
@@ -1073,17 +1073,17 @@
         },
         "valueMode": "text"
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "columns": [
             {
-              "selector": "Projeção futura de temperatura",
+              "selector": "projecao_futura_de_temperatura",
               "text": "Projeção futura de temperatura",
               "type": "number"
             },
             {
-              "selector": "Projeção futura de umidade",
+              "selector": "projecao_futura_de_umidade",
               "text": "Projeção futura de umidade",
               "type": "number"
             }
@@ -1228,7 +1228,7 @@
           "valueSize": 50
         }
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "columns": [
@@ -1383,7 +1383,7 @@
           "valueSize": 50
         }
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "columns": [
@@ -1474,7 +1474,7 @@
         "textMode": "value_and_name",
         "wideLayout": true
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "columns": [
@@ -1502,7 +1502,6 @@
           }
         }
       ],
-      "title": "Panel Title",
       "transparent": true,
       "type": "stat"
     },
@@ -1561,7 +1560,7 @@
         "textMode": "value_and_name",
         "wideLayout": true
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "columns": [
@@ -1589,7 +1588,6 @@
           }
         }
       ],
-      "title": "Panel Title",
       "transparent": true,
       "type": "stat"
     },
@@ -1648,7 +1646,7 @@
         "textMode": "value_and_name",
         "wideLayout": true
       },
-      "pluginVersion": "11.3.0+security-01",
+      "pluginVersion": "11.4.0-78678",
       "targets": [
         {
           "columns": [
@@ -1676,7 +1674,6 @@
           }
         }
       ],
-      "title": "Panel Title",
       "transparent": true,
       "type": "stat"
     }
@@ -1695,6 +1692,6 @@
   "timezone": "browser",
   "title": "plant.ly",
   "uid": "ae3o7x8yzbcowf",
-  "version": 3,
+  "version": 11,
   "weekStart": ""
 }

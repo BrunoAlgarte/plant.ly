@@ -683,9 +683,9 @@ paths:
               schema:
                 type: object
                 properties:
-                  averageTemperature:
+                  media_temperatura_do_ar:
                     type: number
-                  averageHumidity:
+                  media_umidade_do_ar:
                     type: number
         500:
           description: Erro no servidor.
@@ -716,9 +716,9 @@ paths:
               schema:
                 type: object
                 properties:
-                  modeTemperature:
+                  moda_temperatura_do_ar:
                     type: number
-                  modeHumidity:
+                  moda_umidade_do_ar:
                     type: number
         500:
           description: Erro no servidor.
@@ -749,9 +749,9 @@ paths:
               schema:
                 type: object
                 properties:
-                  medianTemperature:
+                  mediana_temperatura_do_ar:
                     type: number
-                  medianHumidity:
+                  mediana_umidade_do_ar:
                     type: number
         500:
           description: Erro no servidor.
@@ -782,9 +782,9 @@ paths:
               schema:
                 type: object
                 properties:
-                  stdDevTemperature:
+                  desvio_padrão_temperatura_do_ar:
                     type: number
-                  stdDevHumidity:
+                  desvio_padrão_umidade_do_ar:
                     type: number
         500:
           description: Erro no servidor.
@@ -815,9 +815,9 @@ paths:
               schema:
                 type: object
                 properties:
-                  skewnessTemperature:
+                  assimetria_temperatura_do_ar:
                     type: number
-                  skewnessHumidity:
+                  assimetria_umidade_do_ar:
                     type: number
         500:
           description: Erro no servidor.
@@ -848,9 +848,9 @@ paths:
               schema:
                 type: object
                 properties:
-                  projectedTemperature:
+                  projecao_futura_de_temperatura:
                     type: number
-                  projectedHumidity:
+                  projecao_futura_de_umidade:
                     type: number
         500:
           description: Erro no servidor.

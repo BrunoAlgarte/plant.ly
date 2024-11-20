@@ -6,15 +6,15 @@ Plant.ly é uma aplicação completa para gerenciamento de plantas, permitindo q
 
 - Rafael - [GitHub](https://github.com/RafaelVSs)
 - Bruno - [GitHub](https://github.com/Brunoalgarte)
-- Eduardo - [GitHub](https://github.com/eduardovbf)- Modo offline
+- Eduardo - [GitHub](https://github.com/eduardovbf)
 
 
 ## 🏗️ Estrutura do Projeto
 ```
 plant.ly/
 ├── IoT/ # Projeto IoT
-│ ├── arduino/ # Código Arduino
-│ └── python/ # Código Python
+│ ├── dashbaord_grafana/ # Export do dashboard
+│ └── script_sensordatas/ # Código Python
 ├── client/ # Projeto Next.js
 │ ├── public/
 │ └── src/
@@ -52,7 +52,7 @@ plant.ly/
 - Yarn ou NPM
 
 
-## Frontend Web (Next.js)
+## 🖥️ Frontend Web (Next.js)
 
 ### 🚀 Tecnologias Utilizadas
 
@@ -80,7 +80,36 @@ npm install
 npm run dev
 ```
 
-## Mobile (React Native)
+### 📸 Telas frontend
+
+# 🔙 Backend (Express)
+
+### 🚀 Tecnologias Utilizadas
+
+- Node.js
+- Express
+- MongoDB
+- OnpenApi
+
+
+### 🚀 Como Executar
+
+```
+bash
+
+cd server
+npm install
+# Configure o .env com as variáveis do MongoDB
+npm run dev
+```
+
+### 🔐 Variáveis de Ambiente
+
+env
+MONGODB_URI="mongodb://seu_link_do_mongo"
+PORT=
+
+# 📱 Mobile (React Native)
 
 ### 🚀 Tecnologias Utilizadas
 
@@ -111,34 +140,85 @@ npm install
 npx expo start
 # Escaneie o QR Code com o app Expo Go
 ```
+### 📸 Telas mobile
 
-
-
-## Backend (Express)
+# 🌐 Iot e estátisticas
 
 ### 🚀 Tecnologias Utilizadas
 
-- Node.js
-- Express
-- MongoDB
+- Python 
+- Bibliotecas: 
+- Grafana Cloud
 
 
-### 🚀 Como Executar
+### 🌡️ Sensores
+
+- **Sensor de temperatura e umidade do ar DHT22**
+
+  <img src="IoT/sensor_ar_front.png" alt="Sensor de temperatura e umidade do ar" width="200"/>
+  <img src="IoT/sensor_ar_back.png" width="200">
+  
+- **Sensor de umidade do solo digital**
+
+
+  <img src="IoT/sensor_solo_front.png" alt="Sensor de umidade do solo" width="200"/>
+  <img src="IoT/sensor_solo_back.png" alt="Sensor de umidade do solo" width="200"/>
+
+- **Raspberry PI 3.0**
+
+
+  <img src="IoT/raspberrypi.png" alt="Sensor de umidade do solo" width="200"/>
+
+### 🪛 Configuração
 
 ```
-bash
+🖇️ Pinos do Sensor DHT22
+VCC: Alimentação (+3.3V ou +5V do Raspberry Pi)
+DATA: Pino de dados para comunicação com o Raspberry Pi
+GND: Terra (Ground)
 
-cd server
-npm install
-# Configure o .env com as variáveis do MongoDB
-npm run dev
+🔌 Conexão com o Raspberry Pi
+Conecte o pino VCC do DHT22 a um dos pinos de 3.3V ou 5V do Raspberry Pi.
+Conecte o pino DATA a um dos pinos GPIO do Raspberry Pi (ex.: GPI21).
+Conecte o pino GND ao GND do Raspberry Pi.
+
+🖇️ Pinos do Sensor de Umidade do Solo
+VCC: Alimentação (+3.3V ou +5V do Raspberry Pi)
+AO: Saída analógica (não usada no Raspberry Pi sem conversor ADC)
+DO: Saída digital (para GPIO)
+GND: Terra (Ground)
+
+🔌 Conexão com o Raspberry Pi
+Conecte o pino VCC do sensor ao 3.3V do Raspberry Pi.
+Conecte o pino DO (Saída Digital) a um pino GPIO (ex.: GPIO17).
+Conecte o pino GND ao GND do Raspberry Pi.
+
 ```
 
-### 🔐 Variáveis de Ambiente
+## 📚 Leitura dos dados
 
-env
-MONGODB_URI="mongodb://seu_link_do_mongo"
-PORT=
+## 📊 Dashboard estatístico
+
+```
+- Crie uma conta no Grafana Cloud.
+- Intale o plugin "Infinyt", configure um novo data source com a URL local da api.
+- Na tela de dashboards realize a importação do arquivo, /IoT/dashboard_grafana.json.
+- Realize o filtro de acordo com a data da coleta dos dados.
+- Compartilhe o gráfico como público para uso externo.
+```
+  
+### 📈 Métricas: 
+Média,moda,mediana,desvio padrão, assimetria,projeção futura,máxima,mínima e último registro.
+
+### 📸 Gráficos:
+
+ <img src="IoT/tela_1_grafana.png"  width="400"/>
+ <img src="IoT/tela_2_grafana.png" width="400">
+ <img src="IoT/tela_3_grafana.png" width="400">
+
+
+- [Dashborad Plant.ly](https://brunoalgter.grafana.net/public-dashboards/c35726a3560941c5af48617424b9ddb1?orgId=1)
+
 
 
 ## 📝 Licença
