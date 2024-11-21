@@ -1,47 +1,48 @@
 # Plant.ly 🌱
 
-Plant.ly é uma aplicação completa para gerenciamento de plantas, permitindo que usuários monitorem e cuidem de suas plantas de forma eficiente. O projeto é dividido em três partes principais: frontend web, aplicativo mobile e backend.
+Projeto interdisciplinar 4° Semestre Fatec Franca - Dr Thomaz Novelino.
 
+A solução integra tecnologias modernas de IoT, análise de dados estatísticos e interfaces web/mobile para oferecer uma experiência única aos usuários.
+Este documento apresenta as tecnologias utilizadas e instruções detalhadas para executar o projeto localmente.
 ## 👥 Autores
 
-- Rafael - [GitHub](https://github.com/RafaelVSs)
-- Bruno - [GitHub](https://github.com/Brunoalgarte)
-- Eduardo - [GitHub](https://github.com/eduardovbf)
+- Bruno Algarte Inacio - [GitHub](https://github.com/Brunoalgarte)
+- Eduardo Vilas Boas Freitas - [GitHub](https://github.com/eduardovbf)
+- Rafael Verrisimo Da Silva - [GitHub](https://github.com/RafaelVSs)
+
 
 
 ## 🏗️ Estrutura do Projeto
 ```
 plant.ly/
-├── IoT/ # Projeto IoT
-│ ├── dashbaord_grafana/ # Import do dashboard
-│ └── script_sensordatas/ # Código Python
-├── client/ # Projeto Next.js
-│ ├── public/
-│ └── src/
-│   ├── app/ # Páginas e rotas
-│   ├── components/ # Componentes React
-│   ├── lib/ # Utilitários
-│   └── utils/ # Hooks e funções auxiliares
-│
-├── mobile/ # Projeto React Native
-│ ├── expo/ # Configurações do Expo
-│ └── src/
-│   ├── @types/ # Definições de tipos TypeScript
-│   ├── assets/ # Recursos estáticos
-│   ├── components/ # Componentes React Native
-│   ├── global/ # Configurações globais
-│   ├── pages/ # Telas do aplicativo
-│   ├── types/ # Interfaces e tipos
-│   └── utils/ # Utilitários e helpers
-│
-└── server/ # API Express
+├── IoT/                  # Projeto IoT
+│   ├── dashboard_grafana/  # Import do dashboard
+│   └── script_sensordatas/ # Código Python
+├── client/               # Projeto Next.js
+│   ├── public/
+│   └── src/
+│       ├── app/          # Páginas e rotas
+│       ├── components/   # Componentes React
+│       ├── lib/          # Utilitários
+│       └── utils/        # Hooks e funções auxiliares
+├── mobile/               # Projeto React Native
+│   ├── expo/             # Configurações do Expo
+│   └── src/
+│       ├── @types/       # Definições de tipos TypeScript
+│       ├── assets/       # Recursos estáticos
+│       ├── components/   # Componentes React Native
+│       ├── global/       # Configurações globais
+│       ├── pages/        # Telas do aplicativo
+│       ├── types/        # Interfaces e tipos
+│       └── utils/        # Utilitários e helpers
+└── server/               # API Express
     └── api/
-        └── v1/ # Versão 1 da API
+        └── v1/           # Versão 1 da API
             ├── controllers/ # Controladores da aplicação
             ├── middlewares/ # Middlewares personalizados
-            ├── models/ # Schemas Mongoose
-            ├── routes/ # Rotas da API
-            └──  schemas/ # Schemas de validação
+            ├── models/      # Schemas Mongoose
+            ├── routes/      # Rotas da API
+            └── schemas/     # Schemas de validação
 
 ```
 
@@ -52,7 +53,7 @@ plant.ly/
 - Yarn ou NPM
 
 
-## 🖥️ Frontend Web (Next.js)
+# 🖥️ Frontend Web (Next.js)
 
 
 
@@ -183,7 +184,6 @@ npx expo start
 ### 🚀 Tecnologias Utilizadas
 
 - Python 
-- Bibliotecas: 
 - Grafana Cloud
 
 
@@ -220,7 +220,6 @@ Conecte o pino GND ao GND do Raspberry Pi.
 
 🖇️ Pinos do Sensor de Umidade do Solo
 VCC: Alimentação (+3.3V ou +5V do Raspberry Pi)
-AO: Saída analógica (não usada no Raspberry Pi sem conversor ADC)
 DO: Saída digital (para GPIO)
 GND: Terra (Ground)
 
@@ -233,14 +232,33 @@ Conecte o pino GND ao GND do Raspberry Pi.
 
 ### 📚 Leitura dos dados
 
+```
+Acesse o raspberrypi 3.0.
+Instale o Python3.
+Instale as bibliotecas necessárias:
+
+-pip3 install Adafruit_DHT
+-pip3 install RPi.GPIO
+-pip3 install pymongo
+-pip3 install bson
+
+
+Crie uma pasta e copie o arquivo /IoT/script_plant.ly.py
+
+Defina suas váriaveis de ambiente:
+
+Informe o ID da sua planta e o serviço de escrita se inicia.
+```
+
+
 ### 📊 Dashboard estatístico
 
 ```
-- Crie uma conta no Grafana Cloud.
-- Intale o plugin "Infinyt", configure um novo data source com a URL local da api.
-- Na tela de dashboards realize a importação do arquivo, /IoT/dashboard_grafana.json.
-- Realize o filtro de acordo com a data da coleta dos dados.
-- Compartilhe o gráfico como público para uso externo.
+1. Crie uma conta no Grafana Cloud.
+2. Instale o plugin "Infinity" e configure o Data Source com a URL local da API.
+3. Importe o arquivo `/IoT/dashboard_grafana.json`.
+4. Realize o filtro conforme a data dos dados coletados.
+5. Compartilhe o gráfico publicamente.
 ```
   
 ### 📈 Métricas: 
