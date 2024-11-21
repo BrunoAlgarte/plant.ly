@@ -179,7 +179,7 @@ npx expo start
 
  
 
-# 🌐 Iot e estátisticas
+# 🌐 Iot e estatistícas
 
 ### 🚀 Tecnologias Utilizadas
 
